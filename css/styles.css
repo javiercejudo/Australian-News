@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #efefef;
+}
+
+.item {
+  width: 50%;
+  min-width: 320px;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 25px 0;
+}
+
+.item h1 {
+  border-bottom: 1px solid transparent;
+  font-size: 105%;
+  float: left;
+}
+
+.item h1:hover {
+  border-bottom: 1px dotted #333;
+}
+
+.item .pubDate {
+  color: grey;
+  font-size: small;
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+.item .description {
+  clear: both;
+}
+
+.item a {
+  color: inherit;
+  display: block;
+  text-decoration: none;
+  padding: 20px 50px;
+}
