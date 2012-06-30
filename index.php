@@ -2,10 +2,11 @@
 header('Content-type: text/html; charset=utf-8');
 require 'config.php';
 $local_url = 'data/smh.xml';
-if (is_file($local_url)) {
+if (is_file($local_url) && date('U')-filemtime($local_url) < 60*5+10) {
 	$xml_string = file_get_contents($local_url);
 } else {
 	$xml_string = file_get_contents(SOURCE);
+	file_put_contents($local_url, $xml_string);
 }
 $aux = simplexml_load_string($xml_string);
 $news = $aux->channel->item;

@@ -3,12 +3,13 @@ body {
   padding: 0;
   color: #333;
   background-color: #efefef;
+  font-size:175%;
 }
 
 .item {
-  width: 50%;
+  width: 75%;
   min-width: 320px;
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
   margin-bottom: 20px;
   background-color: white;
@@ -17,7 +18,7 @@ body {
 
 .item h1 {
   border-bottom: 1px solid transparent;
-  font-size: 105%;
+  font-size: 110%;
   float: left;
 }
 
@@ -27,7 +28,7 @@ body {
 
 .item .pubDate {
   color: grey;
-  font-size: small;
+  font-size: 60%;
   float: right;
   margin: 0;
   padding: 0;
