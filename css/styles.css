@@ -60,9 +60,10 @@ body {
   -o-transition: all 250ms;
   -webkit-transition: all 250ms;
   transition: all 250ms;
+  outline: 0;
 }
 
-.item a:hover {
+.item a:hover, .item a:active, .item a:focus {
   box-shadow: 0 0 15px 5px #ccc;
 }
 
