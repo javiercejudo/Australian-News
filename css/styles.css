@@ -3,27 +3,37 @@ body {
   padding: 0;
   color: #333;
   background-color: #efefef;
-  font-size:175%;
+  font-size:160%;
 }
 
-.item {
+.outer-container {
   width: 75%;
   min-width: 320px;
   max-width: 650px;
   margin: 0 auto;
-  margin-bottom: 20px;
+}
+
+.item {
+  margin-top: 20px;
   background-color: white;
-  border-radius: 25px 0;
+  border: 1px solid #ddd;
+  border-radius: 50px 0;
 }
 
 .item h1 {
+  width: 100%;
   border-bottom: 1px solid transparent;
   font-size: 110%;
   float: left;
+/*
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+*/
 }
 
 .item h1:hover {
-  border-bottom: 1px dotted #333;
+  color: #666;
 }
 
 .item .pubDate {
@@ -43,6 +53,11 @@ body {
   display: block;
   text-decoration: none;
   padding: 20px 50px;
+  border-radius: 50px 0;
+}
+
+.item a:hover {
+  box-shadow: 0 0 15px 5px #ccc;
 }
 
 .technical {
@@ -52,6 +67,10 @@ body {
 .footer {
   color: #999;
   text-align: center;
+}
+
+.footer a {
+  color: inherit;
 }
 
 .git_ribbon {

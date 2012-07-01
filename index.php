@@ -22,7 +22,7 @@ foreach ($news as $item) {
 	$pubdate = strtotime($item->pubDate);
 	echo '<div class="item"><a href="' . $item->link . '">' . "\n";
 	echo '<p class="pubDate">' . date('H:i | d/m/Y', $pubdate) . '</p>' . "\n";
-	echo '<h1>' . $item->title . '</h1>' . "\n";
+	echo '<h1 title="' . $item->title . '">' . $item->title . '</h1>' . "\n";
 	echo '<p class="description">' . $item->description . '</p>' . "\n";
 	echo '</a></div>' . "\n";
 }
