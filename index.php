@@ -29,8 +29,7 @@ foreach ($news as $item) {
 ?>
 </div>
 <footer>
-<p class="technical footer">Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a> 
-and <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS3</a>. 
+<p class="technical footer">Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a>. 
 © <?php echo date('Y'); ?> Javier Cejudo</p>
 <a href="https://github.com/javiercejudo/Australian-News">
 	<img class="git_ribbon" src="assets/fork_red.png" alt="Fork me on GitHub">
