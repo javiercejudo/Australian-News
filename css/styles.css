@@ -25,11 +25,13 @@ body {
   border-bottom: 1px solid transparent;
   font-size: 110%;
   float: left;
-/*
+  -moz-transition: all 250ms;
+  -o-transition: all 250ms;
+  -webkit-transition: all 250ms;
+  transition: all 250ms;
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
-*/
 }
 
 .item h1:hover {
@@ -54,6 +56,10 @@ body {
   text-decoration: none;
   padding: 20px 50px;
   border-radius: 50px 0;
+  -moz-transition: all 250ms;
+  -o-transition: all 250ms;
+  -webkit-transition: all 250ms;
+  transition: all 250ms;
 }
 
 .item a:hover {
