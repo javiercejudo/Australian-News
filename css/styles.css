@@ -44,3 +44,19 @@ body {
   text-decoration: none;
   padding: 20px 50px;
 }
+
+.technical {
+  font-size: 60%;
+}
+
+.footer {
+  color: #999;
+  text-align: center;
+}
+
+.git_ribbon {
+  border: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}

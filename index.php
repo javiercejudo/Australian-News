@@ -21,11 +21,19 @@ $news = $aux->channel->item;
 foreach ($news as $item) {
 	$pubdate = strtotime($item->pubDate);
 	echo '<div class="item"><a href="' . $item->link . '">' . "\n";
-	echo '<h1>' . $item->title . '</h1>' . "\n";
 	echo '<p class="pubDate">' . date('H:i | d/m/Y', $pubdate) . '</p>' . "\n";
+	echo '<h1>' . $item->title . '</h1>' . "\n";
 	echo '<p class="description">' . $item->description . '</p>' . "\n";
 	echo '</a></div>' . "\n";
 }
 ?>
 </div>
+<footer>
+<p class="technical footer">Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a> 
+and <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS3</a>. 
+© <?php echo date('Y'); ?> Javier Cejudo
+<a href="https://github.com/javiercejudo/Australian-News">
+	<img class="git_ribbon" src="assets/fork_red.png" alt="Fork me on GitHub">
+</a>
+</footer>
 </body>
