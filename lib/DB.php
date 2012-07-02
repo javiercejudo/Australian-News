@@ -20,13 +20,19 @@ class DB {
 		);
 		$stmt->execute($params);
 	}
-	static function get_latest_news($pdo, $num=100, $filter=null){
+	static function get_latest_news($pdo, $num=100, $q=null){
 		$sql = ' SELECT * FROM `news` ';
-		if ($filter !== null) {
-			$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $filter . '\') ';
-		} else {
-			$sql .= ' ORDER BY pub_date DESC LIMIT ' . $num;
+		if (!isset($_GET['q']) || empty($_GET['q'])) {
+			$q = null;
 		}
+		if ($q !== null) {
+			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\') ';
+			$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\' IN BOOLEAN MODE) ';
+			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\' WITH QUERY EXPANSION) ';
+		} else {
+			$sql .= ' ORDER BY pub_date DESC ';
+		}
+		$sql .= ' LIMIT ' . $num;
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');

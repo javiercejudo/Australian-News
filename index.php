@@ -17,9 +17,8 @@ if (is_file($local_url) && date('U')-filemtime($local_url) < 60*5+10) {
 }
 $aux = simplexml_load_string($xml_string);
 $rss_news = $aux->channel->item;
-if (!isset($_GET['q']) || empty($_GET['q'])) {
-	$q = null;
-} else {
+$q = '';
+if (isset($_GET['q']) && !empty($_GET['q'])) {
 	$q = $_GET['q'];
 }
 ?>
@@ -27,12 +26,14 @@ if (!isset($_GET['q']) || empty($_GET['q'])) {
 <meta charset="UTF-8" />
 <title>Australian News | Javier Cejudo</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css">
+<script src="vendor/js/mootools-core.js" type="text/javascript"></script>
+<script src="js/search.js" type="text/javascript"></script>
 <body>
 <div class="outer-container">
 <form name="search_form" action="" method="GET">
-<input type="search" placeholder="Search news..." id="q" name="q" value="<?= $q ?>" /><input type="submit" value="Search" />
+<input type="search" autocomplete="off" autofocus="autofocus" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" /><input type="submit" value="Search" />
 </form>
-<div class="news-container">
+<div id="news-container">
 <?php
 $stmt = DB::prepare_insert($pdo);
 foreach ($rss_news as $item) {
@@ -45,7 +46,7 @@ foreach ($rss_news as $item) {
 $news = DB::get_latest_news($pdo, 100, $q); // array of News
 $total_news = count($news);
 if ($total_news > 0) {
-	echo '<div class="item"><a name="total-results"> Showing ' . $total_news . ' items.</a></div>';
+	echo '<div class="item no-news total-results"><a name="total-results"> Showing ' . $total_news . ' items.</a></div>';
 	foreach ($news as $item) {
 		echo '<div class="item"><a href="' . $item->link . '">' . "\n";
 		echo '<p class="pubDate">' . date('H:i | d/m/Y', strtotime($item->pub_date)) . '</p>' . "\n";
@@ -54,7 +55,7 @@ if ($total_news > 0) {
 		echo '</a></div>' . "\n";
 	}
 } else {
-	echo '<div class="item"><a name="no-results">No relevant results were found.</a></div>';
+	echo '<div class="item no-news"><a name="no-results">No relevant results were found.</a></div>';
 }
 ?>
 </div>
