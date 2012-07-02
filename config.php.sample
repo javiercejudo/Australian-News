@@ -1,3 +1,11 @@
 <?php
 date_default_timezone_set('Australia/Sydney');
 define('SOURCE', 'http://feeds.smh.com.au/rssheadlines/national.xml');
+
+define('HOST', '');
+define('USERNAME', '');
+define('PASSWD', '');
+define('DBNAME', '');
+
+define('BASE', dirname(__FILE__));
+define('DIRLIB', BASE . '/lib/');
