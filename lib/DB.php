@@ -20,26 +20,37 @@ class DB {
 		);
 		$stmt->execute($params);
 	}
-	static function get_latest_news($pdo, $num=100, $q=null){
+	static function get_latest_news($pdo, $num=100, $q=null, &$qq, &$query){
+		if (!isset($_GET['q']) || empty($_GET['q'])) { $q = null; }
+		//else { $q = substr($pdo->quote($q), 1, -1); }
 		$sql = ' SELECT * FROM `news` ';
-		if (!isset($_GET['q']) || empty($_GET['q'])) {
-			$q = null;
-		}
 		if ($q !== null) {
 			$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\') ';
 			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\' IN BOOLEAN MODE) ';
 			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\' WITH QUERY EXPANSION) ';
 		} else {
-			$sql .= ' ORDER BY pub_date DESC ';
+			$sql .= ' ORDER BY `pub_date` DESC ';
 		}
 		$sql .= ' LIMIT ' . $num;
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');
-		if (count($result) < 1) {
-			$qq = 'gillard';
-			return self::get_latest_news($pdo, $num, $qq);
+		if (count($result) < 1 && true) {
+			$sql = ' SELECT * FROM `news` ';
+			$sql .= ' WHERE ';
+			foreach (explode(" ", $q) as $piece) {
+				if (trim($piece) !== '') {
+					$sql .= '`title` LIKE \'%' . $piece . '%\' OR `description` LIKE \'%' . $piece . '%\' OR ';
+				}				
+			}
+			$sql .= ' 1=2 ORDER BY `pub_date` DESC ';
+			$sql .= ' LIMIT ' . $num;
+			$stmt = $pdo->prepare($sql);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');
 		}
+		$qq = trim($q);
+		$query = $sql;
 		return $result;
 	}
 }

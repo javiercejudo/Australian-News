@@ -19,7 +19,7 @@ $aux = simplexml_load_string($xml_string);
 $rss_news = $aux->channel->item;
 $q = '';
 if (isset($_GET['q']) && !empty($_GET['q'])) {
-	$q = $_GET['q'];
+	$q = trim($_GET['q']);
 }
 ?>
 <!DOCTYPE html>
