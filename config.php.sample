@@ -1,6 +1,8 @@
 <?php
+ini_set('display_errors', 0);
+
 date_default_timezone_set('Australia/Sydney');
-define('SOURCE', 'http://feeds.smh.com.au/rssheadlines/national.xml');
+define('SOURCE', 'http://feeds.smh.com.au/rssheadlines/world.xml');
 
 define('HOST', '');
 define('USERNAME', '');

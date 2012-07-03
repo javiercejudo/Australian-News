@@ -26,8 +26,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 <meta charset="UTF-8" />
 <title>Australian News | Javier Cejudo</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css">
-<script src="vendor/js/mootools-core.js" type="text/javascript"></script>
-<script src="js/search.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="vendor/css/stroll.css">
 <body>
 <div class="outer-container">
 <form name="search_form" action="" method="GET">
@@ -45,18 +44,7 @@ foreach ($rss_news as $item) {
 }
 $news = DB::get_latest_news($pdo, 100, $q); // array of News
 $total_news = count($news);
-if ($total_news > 0) {
-	echo '<div class="item no-news total-results"><a name="total-results"> Showing ' . $total_news . ' items.</a></div>';
-	foreach ($news as $item) {
-		echo '<div class="item"><a href="' . $item->link . '">' . "\n";
-		echo '<p class="pubDate">' . date('H:i | d/m/Y', strtotime($item->pub_date)) . '</p>' . "\n";
-		echo '<h1 title="' . $item->title . '">' . $item->title . '</h1>' . "\n";
-		echo '<p class="description">' . $item->description . '</p>' . "\n";
-		echo '</a></div>' . "\n";
-	}
-} else {
-	echo '<div class="item no-news"><a name="no-results">No relevant results were found.</a></div>';
-}
+include DIRINC . 'dynamic_content.php';
 ?>
 </div>
 </div>
@@ -67,4 +55,10 @@ if ($total_news > 0) {
 <img class="git_ribbon" src="assets/fork_red.png" alt="Fork me on GitHub">
 </a>
 </footer>
+<script src="vendor/js/mootools-core.js" type="text/javascript"></script>
+<script src="vendor/js/stroll.js" type="text/javascript"></script>
+<script src="js/search.js" type="text/javascript"></script>
+<script>
+	//stroll.bind(document.getElementById('fancy-list'));
+</script>
 </body>
