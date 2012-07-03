@@ -30,7 +30,8 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 <body>
 <div class="outer-container">
 <form name="search_form" action="" method="GET">
-<input type="search" autocomplete="off" autofocus="autofocus" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" /><input type="submit" value="Search" />
+<input type="search" autocomplete="off" autofocus="autofocus" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" />
+<!--<input type="submit" value="Search" />-->
 </form>
 <div id="news-container">
 <?php
@@ -42,8 +43,6 @@ foreach ($rss_news as $item) {
 	);
 	DB::execute_update($stmt, $params);
 }
-$news = DB::get_latest_news($pdo, 100, $q); // array of News
-$total_news = count($news);
 include DIRINC . 'dynamic_content.php';
 ?>
 </div>

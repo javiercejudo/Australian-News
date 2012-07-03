@@ -26,8 +26,8 @@ class DB {
 			$q = null;
 		}
 		if ($q !== null) {
-			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\') ';
-			$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\' IN BOOLEAN MODE) ';
+			$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\') ';
+			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\' IN BOOLEAN MODE) ';
 			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\' WITH QUERY EXPANSION) ';
 		} else {
 			$sql .= ' ORDER BY pub_date DESC ';
@@ -36,6 +36,10 @@ class DB {
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');
+		if (count($result) < 1) {
+			$qq = 'gillard';
+			return self::get_latest_news($pdo, $num, $qq);
+		}
 		return $result;
 	}
 }

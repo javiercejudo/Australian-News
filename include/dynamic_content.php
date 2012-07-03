@@ -1,6 +1,8 @@
 <?php
+$news = DB::get_latest_news($pdo, 100, $q);
+$total_news = count($news);
 if ($total_news > 0) {
-	echo '<div class="item no-news total-results"><a name="total-results"> Showing ' . $total_news . ' items.</a></div>';
+	echo '<div class="item no-news total-results"><a name="total-results"> Showing ' . $total_news . ' items for "' . $qq . '" using a fulltext search.</a></div>';
 	echo '<ul class="wave" id="fancy-list">';
 	foreach ($news as $item) {
 		echo '<li class="item"><a href="' . $item->link . '">' . "\n";
@@ -11,5 +13,5 @@ if ($total_news > 0) {
 	}
 	echo '</ul>';
 } else {
-	echo '<div class="item no-news"><a name="no-results">No relevant results were found.</a></div>';
+	echo '<div class="item no-news total-results"><a name="no-results">No relevant results were found for "' . $qq . '" using a fulltext search.</a></div>';
 }

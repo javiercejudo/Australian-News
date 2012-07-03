@@ -15,6 +15,4 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 	$q = $_GET['q'];
 }
 
-$news = DB::get_latest_news($pdo, 100, $q);
-$total_news = count($news);
 include DIRINC . 'dynamic_content.php';
