@@ -6,6 +6,48 @@
     <description>The top National headlines from The Sydney Morning Herald. For all the news, visit http://www.smh.com.au.</description>
     <language>en-AU</language>
     <item>
+      <title>Commodities markets summary</title>
+      <link>http://news.smh.com.au/breaking-news-business/commodities-markets-summary-20120706-21krm.html</link>
+      <description>Commodities news from around the world</description>
+      <pubDate>Thu, 05 Jul 2012 21:44:21 GMT</pubDate>
+      <guid>http://news.smh.com.au/breaking-news-business/commodities-markets-summary-20120706-21krm.html</guid>
+    </item>
+    <item>
+      <title>International markets roundup</title>
+      <link>http://news.smh.com.au/breaking-news-business/international-markets-roundup-20120706-21kq9.html</link>
+      <description>News from the world&amp;#8217;s major stock markets</description>
+      <pubDate>Thu, 05 Jul 2012 21:14:11 GMT</pubDate>
+      <guid>http://news.smh.com.au/breaking-news-business/international-markets-roundup-20120706-21kq9.html</guid>
+    </item>
+    <item>
+      <title>$A higher on Euro stimulus</title>
+      <link>http://news.smh.com.au/breaking-news-business/a-higher-on-euro-stimulus-20120706-21kpz.html</link>
+      <description>The Australian dollar is higher after the Bank of England's decision to introduce new stimulus measures to support the British economy.</description>
+      <pubDate>Thu, 05 Jul 2012 21:29:11 GMT</pubDate>
+      <guid>http://news.smh.com.au/breaking-news-business/a-higher-on-euro-stimulus-20120706-21kpz.html</guid>
+    </item>
+    <item>
+      <title>Australian market preview</title>
+      <link>http://news.smh.com.au/breaking-news-business/australian-market-preview-20120706-21kpj.html</link>
+      <description>A preview of the Australian sharemarket.</description>
+      <pubDate>Thu, 05 Jul 2012 20:54:11 GMT</pubDate>
+      <guid>http://news.smh.com.au/breaking-news-business/australian-market-preview-20120706-21kpj.html</guid>
+    </item>
+    <item>
+      <title>Coalition targets welfare 'bludgers'</title>
+      <link>http://www.smh.com.au/opinion/political-news/coalition-targets-welfare-bludgers-20120705-21k44.html</link>
+      <description>A Coalition government will 'break the cycle of idleness and habits of apathy' that can develop among those on welfare, according to leaked speaking notes.</description>
+      <pubDate>Thu, 05 Jul 2012 20:42:57 GMT</pubDate>
+      <guid>http://www.smh.com.au/opinion/political-news/coalition-targets-welfare-bludgers-20120705-21k44.html</guid>
+    </item>
+    <item>
+      <title>Palmer not fit to be my opponent: Katter</title>
+      <link>http://www.smh.com.au/opinion/political-news/palmer-not-fit-to-be-my-opponent-katter-20120705-21k46.html</link>
+      <description>Bob Katter is publicly underwhelmed by the possibility of mining billionaire Clive Palmer taking him on.</description>
+      <pubDate>Thu, 05 Jul 2012 20:42:31 GMT</pubDate>
+      <guid>http://www.smh.com.au/opinion/political-news/palmer-not-fit-to-be-my-opponent-katter-20120705-21k46.html</guid>
+    </item>
+    <item>
       <title>Solar companies first in hot seat over misleading carbon tax claims</title>
       <link>http://www.smh.com.au/national/solar-companies-first-in-hot-seat-over-misleading-carbon-tax-claims-20120705-21k4d.html</link>
       <description>THE consumer watchdog has taken on some of the nation's most powerful business peak bodies over their claims that power prices would rise by up to 20 per cent in the next year because of the carbon tax.</description>
@@ -18,6 +60,20 @@
       <description>INSURANCE premiums have risen up to 35 per cent, in some cases, in the last fortnight, amounting to hundreds of dollars a year in extra payments, with companies saying an unprecedented streak of ''extreme weather'' is the cause.</description>
       <pubDate>Thu, 05 Jul 2012 17:00:00 GMT</pubDate>
       <guid>http://www.smh.com.au/national/weather-blamed-for-35-rise-in-insurance-prices-20120705-21k4e.html</guid>
+    </item>
+    <item>
+      <title>Taste of own medicine as diet pill maker told to slim down claims</title>
+      <link>http://www.smh.com.au/national/taste-of-own-medicine-as-diet-pill-maker-told-to-slim-down-claims-20120705-21k5d.html</link>
+      <description>Company that claims its weight-loss pills 'undo' the damage of hamburgers is ordered to retract misleading advertisements and write to customers.</description>
+      <pubDate>Thu, 05 Jul 2012 17:00:00 GMT</pubDate>
+      <guid>http://www.smh.com.au/national/taste-of-own-medicine-as-diet-pill-maker-told-to-slim-down-claims-20120705-21k5d.html</guid>
+    </item>
+    <item>
+      <title>First stoush on misleading carbon tax ads</title>
+      <link>http://www.smh.com.au/opinion/political-news/first-stoush-on-misleading-carbon-tax-ads-20120705-21k6u.html</link>
+      <description>The consumer watchdog takes on some of the nation's most powerful business peak bodies over their claims that power prices would rise by up to 20 per cent because of the carbon tax.</description>
+      <pubDate>Thu, 05 Jul 2012 20:42:15 GMT</pubDate>
+      <guid>http://www.smh.com.au/opinion/political-news/first-stoush-on-misleading-carbon-tax-ads-20120705-21k6u.html</guid>
     </item>
     <item>
       <title>Poker sites are flush with Aussie players</title>
@@ -49,10 +105,10 @@
     </item>
     <item>
       <title>Indonesia rejects Abbott 'tow back boats' vow</title>
-      <link>http://www.smh.com.au/national/indonesia-rejects-abbott-tow-back-boats-vow-20120705-21k82.html</link>
+      <link>http://www.smh.com.au/opinion/political-news/indonesia-rejects-abbott-tow-back-boats-vow-20120705-21k82.html</link>
       <description>THE Indonesian government has confirmed that it would not accept the towing back of asylum seeker boats to its shores, sources say.</description>
-      <pubDate>Thu, 05 Jul 2012 17:00:00 GMT</pubDate>
-      <guid>http://www.smh.com.au/national/indonesia-rejects-abbott-tow-back-boats-vow-20120705-21k82.html</guid>
+      <pubDate>Thu, 05 Jul 2012 20:43:15 GMT</pubDate>
+      <guid>http://www.smh.com.au/opinion/political-news/indonesia-rejects-abbott-tow-back-boats-vow-20120705-21k82.html</guid>
     </item>
     <item>
       <title>Legal online poker raises stakes for those in danger of addiction</title>
@@ -648,62 +704,6 @@
       <description>The Special Air Service Regiment soldier killed in action in Afghanistan this week has been named as father-of-two Blaine Diddams, who was born in Canberra.</description>
       <pubDate>Wed, 04 Jul 2012 10:30:01 GMT</pubDate>
       <guid>http://www.smh.com.au/national/soldier-killed-in-afghanistan-named-20120704-21hf4.html</guid>
-    </item>
-    <item>
-      <title>Church denies it covered up sex abuse</title>
-      <link>http://news.smh.com.au/breaking-news-national/church-denies-it-covered-up-sex-abuse-20120704-21hjc.html</link>
-      <description>The Catholic Archdiocese has denied allegations of a sexual abuse cover-up as fresh abuse claims surface and lawyers call for a royal commission.</description>
-      <pubDate>Wed, 04 Jul 2012 10:34:11 GMT</pubDate>
-      <guid>http://news.smh.com.au/breaking-news-national/church-denies-it-covered-up-sex-abuse-20120704-21hjc.html</guid>
-    </item>
-    <item>
-      <title>Aussie father of two died in Afghanistan</title>
-      <link>http://news.smh.com.au/breaking-news-national/aussie-father-of-two-died-in-afghanistan-20120704-21hek.html</link>
-      <description>Father-of-two Sergeant Blaine Diddams has been identified as the SASR soldier who died after being shot in the chest by insurgents on Monday.</description>
-      <pubDate>Wed, 04 Jul 2012 09:59:11 GMT</pubDate>
-      <guid>http://news.smh.com.au/breaking-news-national/aussie-father-of-two-died-in-afghanistan-20120704-21hek.html</guid>
-    </item>
-    <item>
-      <title>AOC underestimates pill use, says shooter</title>
-      <link>http://news.smh.com.au/breaking-news-sport/aoc-underestimates-pill-use-says-shooter-20120704-21h8x.html</link>
-      <description>Veteran Olympian Russell Mark says he'll be taking sleeping tablets at the London Games, just as he has at his five previous Olympians.</description>
-      <pubDate>Wed, 04 Jul 2012 09:14:11 GMT</pubDate>
-      <guid>http://news.smh.com.au/breaking-news-sport/aoc-underestimates-pill-use-says-shooter-20120704-21h8x.html</guid>
-    </item>
-    <item>
-      <title>NSW nanny's killer still a mystery</title>
-      <link>http://news.smh.com.au/breaking-news-national/nsw-nannys-killer-still-a-mystery-20120704-21h77.html</link>
-      <description>An inquest has failed to shed light on how 20-year-old nanny Penny Hill was left for dead on the side of a northern NSW road.</description>
-      <pubDate>Wed, 04 Jul 2012 08:29:11 GMT</pubDate>
-      <guid>http://news.smh.com.au/breaking-news-national/nsw-nannys-killer-still-a-mystery-20120704-21h77.html</guid>
-    </item>
-    <item>
-      <title>Warriors keep Mitch Marsh in WA</title>
-      <link>http://news.smh.com.au/breaking-news-sport/warriors-keep-mitch-marsh-in-wa-20120704-21h78.html</link>
-      <description>Star Warriors allrounder Mitch Marsh has dismissed reports he was considering moving away from Western Australia.</description>
-      <pubDate>Wed, 04 Jul 2012 08:29:11 GMT</pubDate>
-      <guid>http://news.smh.com.au/breaking-news-sport/warriors-keep-mitch-marsh-in-wa-20120704-21h78.html</guid>
-    </item>
-    <item>
-      <title>Scientists may have found 'God particle'</title>
-      <link>http://news.smh.com.au/breaking-news-national/scientists-may-have-found-god-particle-20120704-21h6x.html</link>
-      <description>Scientists say they've found a new particle consistent with the Higgs boson, which is the key to the scientific understanding of all matter.</description>
-      <pubDate>Wed, 04 Jul 2012 09:59:11 GMT</pubDate>
-      <guid>http://news.smh.com.au/breaking-news-national/scientists-may-have-found-god-particle-20120704-21h6x.html</guid>
-    </item>
-    <item>
-      <title>Overland to head Tas justice department</title>
-      <link>http://news.smh.com.au/breaking-news-national/overland-to-head-tas-justice-department-20120704-21h6n.html</link>
-      <description>Tasmanian premier Lara Giddings says former Victoria Police chief commissioner Simon Overland is the best man to head her state's justice department.</description>
-      <pubDate>Wed, 04 Jul 2012 08:14:11 GMT</pubDate>
-      <guid>http://news.smh.com.au/breaking-news-national/overland-to-head-tas-justice-department-20120704-21h6n.html</guid>
-    </item>
-    <item>
-      <title>Cornes wants to play AFL for GWS in 2013</title>
-      <link>http://news.smh.com.au/breaking-news-sport/cornes-wants-to-play-afl-for-gws-in-2013-20120704-21h5z.html</link>
-      <description>Greater Western Sydney veteran Chad Cornes is determined to keep playing AFL next season and has hinted at a potential coaching career post-retirement.</description>
-      <pubDate>Wed, 04 Jul 2012 07:54:11 GMT</pubDate>
-      <guid>http://news.smh.com.au/breaking-news-sport/cornes-wants-to-play-afl-for-gws-in-2013-20120704-21h5z.html</guid>
     </item>
   </channel>
 </rss>

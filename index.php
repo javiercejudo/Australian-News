@@ -34,7 +34,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 <link rel="stylesheet" type="text/css" href="vendor/css/stroll.css">
 <body>
 <div class="outer-container">
-<form name="search_form" action="" method="GET">
+<form name="search_form" action="./" method="GET">
 <input type="search" autocomplete="off" autofocus="autofocus" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" />
 <!--<input type="submit" value="Search" />-->
 </form>
