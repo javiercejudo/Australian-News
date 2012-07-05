@@ -2,12 +2,17 @@
 header('Content-type: text/html; charset=utf-8');
 require_once 'config.php';
 require_once DIRLIB . 'DB.php';
-$pdo = new PDO( 
-    'mysql:host=' . HOST . ';dbname=' . DBNAME, 
-    USERNAME, 
-    PASSWD,
-    array(PDO::ATTR_PERSISTENT => false)
-);
+try{
+	$pdo = new PDO( 
+		'mysql:host=' . HOST . ';dbname=' . DBNAME, 
+		USERNAME, 
+		PASSWD,
+		array(PDO::ATTR_PERSISTENT => false)
+	);
+} catch (PDOException $e) {
+	echo 'The site is down due to an internal error but it should be back soon. We are sorry for the inconvenience.';
+	die;
+}
 $local_url = 'data/smh.xml';
 if (is_file($local_url) && date('U')-filemtime($local_url) < 60*5+10) {
 	$xml_string = file_get_contents($local_url);
