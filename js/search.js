@@ -8,15 +8,14 @@ window.addEvent('domready', function() {
 		},
 		onComplete: function(response) {
 			timeout = setTimeout(function () {
-                //if (response !== '') {
+				//if (response !== '') {
 			        $('news-container').set('html', response);
-                //}
-                $('news-container').setStyle('opacity', '1');
+				//}
+				$('news-container').setStyle('opacity', '1');
 			}, 100);
 		}
 	});
 	
-	// listener de evento click para el selector de actividad/grupo
 	$('q').addEvent('input', function(event){
 		if(event) { event.preventDefault(); }
 		var q = $('q').get('value');
