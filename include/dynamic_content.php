@@ -1,15 +1,21 @@
 <?php
 $qq = '';
 $query = '';
-$news = DB::get_latest_news($pdo, 100, $q, $qq, $query);
+$top_suggestion = '';
+$news = DB::get_latest_news($pdo, 100, $q, $qq, $query, $top_suggestion);
 $total_news = count($news);
 if ($total_news > 0) {
-	echo '<div class="item no-news total-results">Showing ' . $total_news . ' items';
+	echo '<div class="no-news total-results"><p>Showing ' . $total_news . ' items';
 	if (!empty($qq)) {
-		echo ' for "' . $qq . '"';
+		echo ' for "' . $qq . '".';
+		if (!empty($top_suggestion) && $qq !== $top_suggestion)
+		{
+			echo '<p>Maybe you are searching for "<a class="top_suggestion_link" href="./?q=' . $top_suggestion . '">' . $top_suggestion . '</a>".</p>';
+		}
 	}
+	echo '</p>';
 	if (!empty($query)) {
-		//echo ' <br /><br /> Query :: ' . $query;
+		//echo '<p>Debug :: ' . $query . '</p>';
 	}
 	echo '</div>';
 	echo '<ul class="wave" id="fancy-list">';
@@ -29,9 +35,13 @@ if ($total_news > 0) {
 	}
 	echo '</ul>';
 } else {
-	echo '<div class="item no-news total-results">No relevant results were found for "' . $qq . '"';
+	echo '<div class="no-news total-results"><p>No relevant results were found for "' . $qq . '".</p>';
+	if (!empty($top_suggestion) && $qq !== $top_suggestion)
+	{
+		echo '<p>Maybe you meant "<a class="top_suggestion_link" href="./?q=' . $top_suggestion . '">' . $top_suggestion . '</a>".</p>';
+	}
 	if (!empty($query)) {
-		//echo ' <br /><br /> Query :: ' . $query;
+		//echo '<p>Debug :: ' . $query . '</p>';
 	}
 	echo '</div>';
 }

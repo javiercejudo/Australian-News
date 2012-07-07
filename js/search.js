@@ -21,4 +21,10 @@ window.addEvent('domready', function() {
 		var q = $('q').get('value');
 		req.get({ q : q });
 	});
+	
+	$$('.outer-container').addEvent('click:relay(a.top_suggestion_link)', function(event, target){
+		if(event) { event.preventDefault(); }
+		$('q').set('value', target.get('html'));
+		$('q').fireEvent('input');
+	});
 });

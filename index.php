@@ -20,8 +20,18 @@ if (is_file($local_url) && date('U')-filemtime($local_url) < 60*5+10) {
 	$xml_string = file_get_contents(SOURCE);
 	file_put_contents($local_url, $xml_string);
 }
-$aux = simplexml_load_string($xml_string);
-$rss_news = $aux->channel->item;
+$aux = @simplexml_load_string($xml_string);
+if ($aux !== false) {
+	$rss_news = $aux->channel->item;
+	$stmt = DB::prepare_insert($pdo);
+	foreach ($rss_news as $item) {
+		$params = array (
+			$item->title, $item->description,
+			$item->pubDate,	$item->link, $item->guid
+		);
+		DB::execute_update($stmt, $params);
+	}
+}
 $q = '';
 if (isset($_GET['q']) && !empty($_GET['q'])) {
 	$q = trim($_GET['q']);
@@ -31,7 +41,6 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 <meta charset="UTF-8" />
 <title>Australian News | Javier Cejudo</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css">
-<link rel="stylesheet" type="text/css" href="vendor/css/stroll.css">
 <body>
 <div class="outer-container">
 <form name="search_form" action="./" method="GET">
@@ -39,17 +48,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 <!--<input type="submit" value="Search" />-->
 </form>
 <div id="news-container">
-<?php
-$stmt = DB::prepare_insert($pdo);
-foreach ($rss_news as $item) {
-	$params = array (
-		$item->title, $item->description,
-		$item->pubDate,	$item->link, $item->guid
-	);
-	DB::execute_update($stmt, $params);
-}
-include DIRINC . 'dynamic_content.php';
-?>
+<?php include DIRINC . 'dynamic_content.php'; ?>
 </div>
 </div>
 <footer>
@@ -60,9 +59,5 @@ include DIRINC . 'dynamic_content.php';
 </a>
 </footer>
 <script src="vendor/js/mootools-core.js" type="text/javascript"></script>
-<script src="vendor/js/stroll.js" type="text/javascript"></script>
 <script src="js/search.js" type="text/javascript"></script>
-<script>
-	//stroll.bind(document.getElementById('fancy-list'));
-</script>
 </body>

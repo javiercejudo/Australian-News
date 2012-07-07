@@ -20,22 +20,27 @@ class DB {
 		);
 		$stmt->execute($params);
 	}
-	static function get_latest_news($pdo, $num=100, $q=null, &$qq, &$query){
+	static function get_latest_news($pdo, $num=100, $q=null, &$qq, &$query, &$top_suggestion){
 		if (!isset($_GET['q']) || empty($_GET['q'])) { $q = null; }
 		//else { $q = substr($pdo->quote($q), 1, -1); }
 		$sql = ' SELECT * FROM `news` ';
 		if ($q !== null) {
-			$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . addslashes($q) . '\') ';
-			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . addslashes($q) . '\' IN BOOLEAN MODE) ';
-			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . addslashes($q) . '\' WITH QUERY EXPANSION) ';
+			$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (?) ';
+			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (? IN BOOLEAN MODE) ';
+			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (? WITH QUERY EXPANSION) ';
 		} else {
 			$sql .= ' ORDER BY `pub_date` DESC ';
 		}
 		$sql .= ' LIMIT ' . $num;
 		$stmt = $pdo->prepare($sql);
-		$stmt->execute();
+		$stmt->execute(array(addslashes($q)));
 		$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');
 		if (count($result) < 1 && true) {
+			$suggestions = utf8_encode(file_get_contents('http://suggestqueries.google.com/complete/search?hl=en&cr=countryAU&client=firefox&q=' . str_replace(' ','+',addslashes($q))));
+			$sug_aux1 = preg_replace('/[\[\]\"]/','',$suggestions);
+			$sug_aux2 = array_filter(explode(',',$sug_aux1));
+			if (count($sug_aux2)>1) $top_suggestion = $sug_aux2[1];
+			//print_r($sug_aux2);
 			$sql = ' SELECT * FROM `news` ';
 			$sql .= ' WHERE ';
 			$params_aux = array();
