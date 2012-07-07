@@ -25,9 +25,9 @@ class DB {
 		//else { $q = substr($pdo->quote($q), 1, -1); }
 		$sql = ' SELECT * FROM `news` ';
 		if ($q !== null) {
-			$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\') ';
-			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\' IN BOOLEAN MODE) ';
-			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . $q . '\' WITH QUERY EXPANSION) ';
+			$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . addslashes($q) . '\') ';
+			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . addslashes($q) . '\' IN BOOLEAN MODE) ';
+			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (\'' . addslashes($q) . '\' WITH QUERY EXPANSION) ';
 		} else {
 			$sql .= ' ORDER BY `pub_date` DESC ';
 		}
@@ -38,15 +38,18 @@ class DB {
 		if (count($result) < 1 && true) {
 			$sql = ' SELECT * FROM `news` ';
 			$sql .= ' WHERE ';
+			$params_aux = array();
 			foreach (explode(" ", $q) as $piece) {
 				if (trim($piece) !== '') {
-					$sql .= '`title` LIKE \'%' . $piece . '%\' OR `description` LIKE \'%' . $piece . '%\' OR ';
+					$sql .= '`title` LIKE ? OR `description` LIKE ? OR ';
+					$params_aux[] = '%' . addslashes($piece) . '%';
+					$params_aux[] = '%' . addslashes($piece) . '%';
 				}				
 			}
 			$sql .= ' 1=2 ORDER BY `pub_date` DESC ';
 			$sql .= ' LIMIT ' . $num;
 			$stmt = $pdo->prepare($sql);
-			$stmt->execute();
+			$stmt->execute($params_aux);
 			$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');
 		}
 		$qq = trim($q);

@@ -17,7 +17,7 @@ if ($total_news > 0) {
 		echo '<li class="item"><a href="' . $item->link . '">' . "\n";
 		echo '<p class="pubDate">' . date('H:i | d/m/Y', strtotime($item->pub_date)) . '</p>' . "\n";
 		echo '<h1 title="' . $item->title . '">' . $item->title . '</h1>' . "\n";
-		echo '<p class="description">' . $item->description . '</p>' . "\n";
+		echo '<div class="description">' . substr($item->description,0,strpos($item->description,'<font face=')) . '</p></div>' . "\n";
 		echo '</a></li>' . "\n";
 	}
 	echo '</ul>';
