@@ -1,6 +1,7 @@
 .*
 !.gitignore
 *~
+data/*
 config.php
 
 # OS generated files #

@@ -36,11 +36,6 @@ class DB {
 		$stmt->execute(array(addslashes($q)));
 		$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');
 		if (count($result) < 1 && true) {
-			$suggestions = utf8_encode(file_get_contents('http://suggestqueries.google.com/complete/search?hl=en&cr=countryAU&client=firefox&q=' . str_replace(' ','+',addslashes($q))));
-			$sug_aux1 = preg_replace('/[\[\]\"]/','',$suggestions);
-			$sug_aux2 = array_filter(explode(',',$sug_aux1));
-			if (count($sug_aux2)>1) $top_suggestion = $sug_aux2[1];
-			//print_r($sug_aux2);
 			$sql = ' SELECT * FROM `news` ';
 			$sql .= ' WHERE ';
 			$params_aux = array();
@@ -57,6 +52,10 @@ class DB {
 			$stmt->execute($params_aux);
 			$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');
 		}
+		$suggestions = utf8_encode(file_get_contents('http://suggestqueries.google.com/complete/search?hl=en&cr=countryAU&client=firefox&q=' . str_replace(' ','+',addslashes($q))));
+		$sug_aux1 = preg_replace('/[\[\]\"]/','',$suggestions);
+		$sug_aux2 = array_filter(explode(',',$sug_aux1));
+		if (count($sug_aux2)>1) $top_suggestion = $sug_aux2[1];
 		$qq = trim($q);
 		$query = $sql;
 		return $result;
