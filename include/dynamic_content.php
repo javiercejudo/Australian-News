@@ -2,7 +2,7 @@
 $qq = '';
 $query = '';
 $top_suggestion = '';
-$news = DB::get_latest_news($pdo, 100, $q, $qq, $query, $top_suggestion);
+$news = DB::get_latest_news($pdo, $num, $q, $qq, $query, $top_suggestion);
 $total_news = count($news);
 if ($total_news > 0) {
 	echo '<div class="no-news total-results"><p>Showing ' . $total_news . ' items';
@@ -18,9 +18,10 @@ if ($total_news > 0) {
 		//echo '<p>Debug :: ' . $query . '</p>';
 	}
 	echo '</div>';
-	echo '<ul class="wave" id="fancy-list">';
+	echo '<ul class="news-feed">';
+	$i = 1;
 	foreach ($news as $item) {
-		echo '<li class="item"><a href="' . $item->link . '">' . "\n";
+		echo '<li class="item"><a name="' . $i . '" href="' . $item->link . '">' . "\n";
 		echo '<p class="pubDate">' . date('H:i | d/m/Y', strtotime($item->pub_date)) . '</p>' . "\n";
 		echo '<h1 title="' . $item->title . '">' . $item->title . '</h1>' . "\n";
 		if (strpos($item->description,'<font face=')) 
@@ -32,6 +33,7 @@ if ($total_news > 0) {
 			echo '<p class="description">' . $item->description . '</p>' . "\n";
 		}
 		echo '</a></li>' . "\n";
+		$i++;
 	}
 	echo '</ul>';
 } else {
@@ -45,3 +47,8 @@ if ($total_news > 0) {
 	}
 	echo '</div>';
 }
+?>
+
+<div class="more-items-container">
+	<a class="more-link" href="?<?php echo "q=" . $q . "&num=" . ($num + DURATION) . "#" . $num  ?>">Load more items</a>
+</div>

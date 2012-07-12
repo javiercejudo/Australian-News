@@ -11,6 +11,7 @@ $pdo = new PDO(
 );
 
 $q = '';
+$num = 10;
 if (isset($_GET['q']) && !empty($_GET['q'])) {
 	$q = $_GET['q'];
 }

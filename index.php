@@ -33,6 +33,14 @@ if ($aux !== false) {
 	}
 }
 $q = '';
+$num = DURATION;
+if (isset($_GET['num']) && !empty($_GET['num'])) {
+	$num = $_GET['num'];
+}
+if (isset($_GET['ns'])) {
+	$num = DURATION;
+}
+$skip =  $num - DURATION;
 if (isset($_GET['q']) && !empty($_GET['q'])) {
 	$q = trim($_GET['q']);
 }
@@ -43,12 +51,15 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 <body>
 <div class="outer-container">
-<form name="search_form" action="./" method="GET">
+<form name="search-form" action="./" method="GET">
 <input type="search" autocomplete="off" autofocus="autofocus" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" />
-<!--<input type="submit" value="Search" />-->
+<input type="hidden" id="num" name="num" value="<?= $num ?>" />
+<input type="hidden" name="ns" value='true' />
 </form>
 <div id="news-container">
-<?php include DIRINC . 'dynamic_content.php'; ?>
+<?php 
+include DIRINC . 'dynamic_content.php'; 
+?>
 </div>
 </div>
 <footer>
