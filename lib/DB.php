@@ -20,7 +20,7 @@ class DB {
 		);
 		$stmt->execute($params);
 	}
-	static function get_latest_news($pdo, $num=100, $q=null, &$qq, &$query, &$top_suggestion){
+	static function get_latest_news($pdo, $num=100, $skip=0,$q=null, &$qq, &$query, &$top_suggestion){
 		if (!isset($_GET['q']) || empty($_GET['q'])) { $q = null; }
 		//else { $q = substr($pdo->quote($q), 1, -1); }
 		$sql = ' SELECT * FROM `news` ';
@@ -31,7 +31,7 @@ class DB {
 		} else {
 			$sql .= ' ORDER BY `pub_date` DESC ';
 		}
-		$sql .= ' LIMIT ' . $num;
+		$sql .= ' LIMIT ' . $skip . ', ' . $num;
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(array(addslashes($q)));
 		$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');
@@ -47,7 +47,7 @@ class DB {
 				}				
 			}
 			$sql .= ' 1=2 ORDER BY `pub_date` DESC ';
-			$sql .= ' LIMIT ' . $num;
+			$sql .= ' LIMIT ' . $skip . ', ' . $num;
 			$stmt = $pdo->prepare($sql);
 			$stmt->execute($params_aux);
 			$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');

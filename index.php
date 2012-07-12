@@ -40,7 +40,7 @@ if (isset($_GET['num']) && !empty($_GET['num'])) {
 if (isset($_GET['ns'])) {
 	$num = DURATION;
 }
-$skip =  $num - DURATION;
+$skip = 0;
 if (isset($_GET['q']) && !empty($_GET['q'])) {
 	$q = trim($_GET['q']);
 }
@@ -55,6 +55,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 <input type="search" autocomplete="off" autofocus="autofocus" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" />
 <input type="hidden" id="num" name="num" value="<?= $num ?>" />
 <input type="hidden" name="ns" value='true' />
+<!--<input type="submit" name="dosearch" value="Search" />-->
 </form>
 <div id="news-container">
 <?php 

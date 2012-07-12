@@ -2,16 +2,17 @@
 $qq = '';
 $query = '';
 $top_suggestion = '';
-$news = DB::get_latest_news($pdo, $num, $q, $qq, $query, $top_suggestion);
+$news = DB::get_latest_news($pdo, $num, $skip, $q, $qq, $query, $top_suggestion);
 $total_news = count($news);
 if ($total_news > 0) {
-	echo '<div class="no-news total-results"><p>Showing ' . $total_news . ' items';
+	echo '<div class="no-news total-results">';
+	if (!empty($qq) && !empty($top_suggestion) && $qq !== $top_suggestion)
+	{
+		echo '<p>Maybe you are searching for "<a class="top_suggestion_link" href="./?q=' . $top_suggestion . '">' . $top_suggestion . '</a>".</p>';
+	}
+	echo '<p>Showing ' . $total_news . ' items';
 	if (!empty($qq)) {
 		echo ' for "' . $qq . '".';
-		if (!empty($top_suggestion) && $qq !== $top_suggestion)
-		{
-			echo '<p>Maybe you are searching for "<a class="top_suggestion_link" href="./?q=' . $top_suggestion . '">' . $top_suggestion . '</a>".</p>';
-		}
 	}
 	echo '</p>';
 	if (!empty($query)) {
@@ -37,18 +38,19 @@ if ($total_news > 0) {
 	}
 	echo '</ul>';
 } else {
-	echo '<div class="no-news total-results"><p>No relevant results were found for "' . $qq . '".</p>';
+	echo '<div class="no-news total-results">';
 	if (!empty($top_suggestion) && $qq !== $top_suggestion)
 	{
 		echo '<p>Maybe you meant "<a class="top_suggestion_link" href="./?q=' . $top_suggestion . '">' . $top_suggestion . '</a>".</p>';
 	}
+	echo'<p>No relevant results were found for "' . $qq . '".</p>';
 	if (!empty($query)) {
-		//echo '<p>Debug :: ' . $query . '</p>';
+		echo '<p>Debug :: ' . $query . '</p>';
 	}
 	echo '</div>';
 }
 ?>
 
 <div class="more-items-container">
-	<a class="more-link" href="?<?php echo "q=" . $q . "&num=" . ($num + DURATION) . "#" . $num  ?>">Load more items</a>
+	<a class="more_link" href="?<?php echo "q=" . $q . "&num=" . ($num + DURATION) . "#" . $num  ?>">Load more items</a>
 </div>
