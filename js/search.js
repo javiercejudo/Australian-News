@@ -36,7 +36,7 @@ window.addEvent('domready', function() {
 	// content of the search box
 	$('q').addEvent('input', function(event){
 		input_req.get({ 'q' : $('q').get('value') });
-		$('num').set('value', 10);
+		$('num').set('value', DURATION);
 	});
 	
 	// when the suggestion is clicked, this brings it into the search box
@@ -61,6 +61,6 @@ window.addEvent('domready', function() {
 			'num' : $('num').get('value'),
 		});
 		var current_value = $('num').get('value');
-		$('num').set('value', parseInt(current_value) + 10);
+		$('num').set('value', parseInt(current_value) + DURATION);
 	});
 });

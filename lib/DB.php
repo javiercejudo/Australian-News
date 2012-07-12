@@ -29,7 +29,7 @@ class DB {
 			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (? IN BOOLEAN MODE) ';
 			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (? WITH QUERY EXPANSION) ';
 		} else {
-			$sql .= ' ORDER BY `pub_date` DESC ';
+			$sql .= ' ORDER BY `id` DESC ';
 		}
 		$sql .= ' LIMIT ' . $skip . ', ' . $num;
 		$stmt = $pdo->prepare($sql);
@@ -46,7 +46,7 @@ class DB {
 					$params_aux[] = '%' . addslashes($piece) . '%';
 				}				
 			}
-			$sql .= ' 1=2 ORDER BY `pub_date` DESC ';
+			$sql .= ' 1=2 ORDER BY `id` DESC ';
 			$sql .= ' LIMIT ' . $skip . ', ' . $num;
 			$stmt = $pdo->prepare($sql);
 			$stmt->execute($params_aux);

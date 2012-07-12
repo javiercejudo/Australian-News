@@ -72,4 +72,7 @@ include DIRINC . 'dynamic_content.php';
 </footer>
 <script src="vendor/js/mootools-core.js" type="text/javascript"></script>
 <script src="js/search.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var DURATION = <?= DURATION ?>;
+</script>
 </body>
