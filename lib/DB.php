@@ -20,44 +20,65 @@ class DB {
 		);
 		$stmt->execute($params);
 	}
-	static function get_latest_news($pdo, $num=100, $skip=0,$q=null, &$qq, &$query, &$top_suggestion){
+	static function get_latest_news($pdo, $num=100, $skip=0,$q=null, &$qq, &$query, &$total_in_database, &$top_suggestion){
 		if (!isset($_GET['q']) || empty($_GET['q'])) { $q = null; }
 		//else { $q = substr($pdo->quote($q), 1, -1); }
-		$sql = ' SELECT * FROM `news` ';
+		$sqld = ' SELECT * FROM `news` ';
+		$sqlt = ' SELECT count(*) as total_in_database FROM `news` ';
 		if ($q !== null) {
-			$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (?) ';
-			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (? IN BOOLEAN MODE) ';
-			//$sql .= ' WHERE MATCH (`title`,`description`) AGAINST (? WITH QUERY EXPANSION) ';
+			$fulltext = ' WHERE MATCH (`title`,`description`) AGAINST (?) ';
+			//$fulltext .= ' WHERE MATCH (`title`,`description`) AGAINST (? IN BOOLEAN MODE) ';
+			//$fulltext .= ' WHERE MATCH (`title`,`description`) AGAINST (? WITH QUERY EXPANSION) ';
+			$sqld .= $fulltext;
+			$sqlt .= $fulltext;
 		} else {
-			$sql .= ' ORDER BY `id` DESC ';
+			$sqld .= ' ORDER BY `id` DESC ';
 		}
-		$sql .= ' LIMIT ' . $skip . ', ' . $num;
-		$stmt = $pdo->prepare($sql);
-		$stmt->execute(array(addslashes($q)));
-		$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');
+		$sqld .= ' LIMIT ' . $skip . ', ' . $num;
+		$stmtd = $pdo->prepare($sqld);
+		$stmtt = $pdo->prepare($sqlt);
+		$stmtd->execute(array(addslashes($q)));
+		$stmtt->execute(array(addslashes($q)));
+		$result = $stmtd->fetchAll(PDO::FETCH_CLASS, 'News');
+		$aux = $stmtt->fetch();
+		$total_in_database = $aux['total_in_database'];
+		
+		// fallback in the case that the fulltext search returns no results
+		// this is usual within the first strokes given our instant approach
 		if (count($result) < 1 && true) {
-			$sql = ' SELECT * FROM `news` ';
-			$sql .= ' WHERE ';
+			$sqld = ' SELECT * FROM `news` ';
+			$sqlt = ' SELECT count(*) as total_in_database FROM `news` ';
+			$sqld .= ' WHERE ';
+			$sqlt .= ' WHERE ';
 			$params_aux = array();
 			foreach (explode(" ", $q) as $piece) {
 				if (trim($piece) !== '') {
-					$sql .= '`title` LIKE ? OR `description` LIKE ? OR ';
+					$sqld .= '`title` LIKE ? OR `description` LIKE ? OR ';
+					$sqlt .= '`title` LIKE ? OR `description` LIKE ? OR ';
 					$params_aux[] = '%' . addslashes($piece) . '%';
 					$params_aux[] = '%' . addslashes($piece) . '%';
 				}				
 			}
-			$sql .= ' 1=2 ORDER BY `id` DESC ';
-			$sql .= ' LIMIT ' . $skip . ', ' . $num;
-			$stmt = $pdo->prepare($sql);
-			$stmt->execute($params_aux);
-			$result = $stmt->fetchAll(PDO::FETCH_CLASS, 'News');
+			$sqld .= ' 1=2 ORDER BY `id` DESC ';
+			$sqlt .= ' 1=2 ';
+			$sqld .= ' LIMIT ' . $skip . ', ' . $num;
+			$stmtd = $pdo->prepare($sqld);
+			$stmtt = $pdo->prepare($sqlt);
+			$stmtd->execute($params_aux);
+			$stmtt->execute($params_aux);
+			$result = $stmtd->fetchAll(PDO::FETCH_CLASS, 'News');
+			$aux = $stmtt->fetch();
+			$total_in_database = $aux['total_in_database'];
 		}
-		$suggestions = utf8_encode(file_get_contents('http://suggestqueries.google.com/complete/search?hl=en&cr=countryAU&client=firefox&q=' . str_replace(' ','+',addslashes($q))));
-		$sug_aux1 = preg_replace('/[\[\]\"]/','',$suggestions);
-		$sug_aux2 = array_filter(explode(',',$sug_aux1));
-		if (count($sug_aux2)>1) $top_suggestion = $sug_aux2[1];
+		
+		// this block handles google suggestions
+		//~ $suggestions = utf8_encode(file_get_contents('http://suggestqueries.google.com/complete/search?hl=en&cr=countryAU&client=firefox&q=' . str_replace(' ','+',addslashes($q))));
+		//~ $sug_aux1 = preg_replace('/[\[\]\"]/','',$suggestions);
+		//~ $sug_aux2 = array_filter(explode(',',$sug_aux1));
+		//~ if (count($sug_aux2)>1) $top_suggestion = $sug_aux2[1];
+		
 		$qq = trim($q);
-		$query = $sql;
+		$query = $sqld;
 		return $result;
 	}
 }

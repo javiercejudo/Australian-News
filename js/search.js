@@ -7,13 +7,13 @@ window.addEvent('domready', function() {
 		url: 'ajax/search.php',
 		link: 'cancel',
 		onRequest: function() {
-			$('news-container').setStyle('opacity', '0.5');
+			//$('news-container').setStyle('opacity', '0.5');
 		},
 		onComplete: function(response) {
 			timeout = setTimeout(function () {
 			    $('news-container').set('html', response);
 				$('news-container').setStyle('opacity', '1');
-			}, 100);
+			}, 0);
 		}
 	});
 	
@@ -22,13 +22,13 @@ window.addEvent('domready', function() {
 		url: 'ajax/more.php',
 		link: 'cancel',
 		onRequest: function() {
-			$('news-container').setStyle('opacity', '0.5');
+			//$('news-container').setStyle('opacity', '0.5');
 		},
 		onComplete: function(response) {
 			timeout = setTimeout(function () {
 			    $('news-container').set('html', response);
 				$('news-container').setStyle('opacity', '1');
-			}, 100);
+			}, 0);
 		}
 	});
 	
