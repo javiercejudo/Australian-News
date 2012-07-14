@@ -69,14 +69,14 @@ class DB {
 			$result = $stmtd->fetchAll(PDO::FETCH_CLASS, 'News');
 			$aux = $stmtt->fetch();
 			$total_in_database = $aux['total_in_database'];
-		}
-		
-		// this block handles google suggestions
-		//~ $suggestions = utf8_encode(file_get_contents('http://suggestqueries.google.com/complete/search?hl=en&cr=countryAU&client=firefox&q=' . str_replace(' ','+',addslashes($q))));
-		//~ $sug_aux1 = preg_replace('/[\[\]\"]/','',$suggestions);
-		//~ $sug_aux2 = array_filter(explode(',',$sug_aux1));
-		//~ if (count($sug_aux2)>1) $top_suggestion = $sug_aux2[1];
-		
+			// this block handles google suggestions
+			if ($total_in_database == 0) {
+				$suggestions = utf8_encode(file_get_contents('http://suggestqueries.google.com/complete/search?hl=en&cr=countryAU&client=firefox&q=' . str_replace(' ','+',addslashes($q))));
+				$sug_aux1 = preg_replace('/[\[\]\"]/','',$suggestions);
+				$sug_aux2 = array_filter(explode(',',$sug_aux1));
+				if (count($sug_aux2)>1) $top_suggestion = $sug_aux2[1];
+			}
+		}		
 		$qq = trim($q);
 		$query = $sqld;
 		return $result;

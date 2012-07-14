@@ -53,9 +53,11 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 <div class="outer-container">
 <form name="search-form" action="./" method="GET">
 <input type="search" autocomplete="off" autofocus="autofocus" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" />
-<input type="text" id="num" name="num" value="<?= $num ?>" />
+<input type="hidden" id="num" name="num" value="<?= $num ?>" />
 <input type="hidden" name="ns" value='true' />
-<input type="submit" name="dosearch" value="Search" />
+<!--<input type="text" id="total_in_database" name="total_in_database" value="" />
+<input type="text" id="skip" name="skip" value="" />-->
+<!--<input type="submit" name="dosearch" value="Search" />-->
 </form>
 <div id="news-container">
 <?php 
