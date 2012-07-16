@@ -1,11 +1,24 @@
 window.addEvent('domready', function() {
-	// the request that will be triggered after the content of the search box
+	// this is the test to see if we need to load more items
+    // basically, if we are close to the bottom, we mimic the user
+    // clicking the link to load more items
+    var infiniteScroll = function(){ 
+        var elt = document.body;
+        if (elt.getScroll().y >= elt.getScrollSize().y - 2*elt.getSize().y) {
+            $$('.outer-container').fireEvent('click:relay(a.more_link)');
+        }
+    };
+    
+    // this defines the frequency of the test
+    var timer = infiniteScroll.periodical(300);
+    
+    // the request that will be triggered after the content of the search box
 	// is modified. we create it outside the addEvent so we can cancel previous
 	// requests before they are completed using the parameter link:
 	var input_req = new Request({
 		method: 'get',
 		url: 'ajax/search.php',
-		link: 'cancel',
+		link: 'chain',
 		onRequest: function() {
 			$('news-container').setStyle('opacity', '0.5');
 		},
@@ -25,28 +38,27 @@ window.addEvent('domready', function() {
 		url: 'ajax/more.php',
 		link: 'ignore',
 		onRequest: function() {
-			//$('news-container').setStyle('opacity', '0.5');
 			$$('.more_link').setStyle('display', 'none');
 			$('more_loading').setStyle('display', 'block');
 		},
 		onComplete: function(response) {
 			timeout = setTimeout(function () {
-				var auxElement = new Element('ul', {class: 'news-feed'});
+				var auxElement = new Element('ul', {'class': 'news-feed'});
 				auxElement.set('html', response);
 				auxElement.inject($('more-items-container'), 'before');
-				var num_top = parseInt($('num').get('value'));
+				var num_top = parseInt($('num').get('value')) + DURATION;
 				var num_tot = parseInt($('num_total').get('html'));
+                var num_sho;
+                $('more_loading').setStyle('display', 'none');
 				if (num_top >= num_tot) {
-					var num_sho = num_tot;
-					$('more-items-container').dispose();
+					num_sho = num_tot;
+                    $$('.more_link').setStyle('display', 'none');
 				} else {
-					var num_sho = num_top;
+					num_sho = num_top;
+                    $$('.more_link').setStyle('display', 'block');
 				}
 				$('num').set('value', num_top);
 				$('num_showing').set('html', num_sho);
-				//$('news-container').setStyle('opacity', '1');
-				$('more_loading').setStyle('display', 'none');
-				$$('.more_link').setStyle('display', 'block');
 			}, 0);
 		}
 	});
@@ -76,23 +88,14 @@ window.addEvent('domready', function() {
 	// triggers the request to load more items when the link is clicked
 	$$('.outer-container').addEvent('click:relay(a.more_link)', function(event, target){
 		if(event) { event.preventDefault(); }
-		more_req.get({ 
-			'q'   : $('q').get('value'),
-			'num' : $('num').get('value'),
-		});
-		$('num').set('value', parseInt($('num').get('value')) + DURATION);
+        if (parseInt($('num_showing').get('html')) < parseInt($('num_total').get('html'))){
+	        more_req.get({ 
+		        'q'   : $('q').get('value'),
+		        'num' : $('num').get('value')
+            });
+            //$('num').set('value', parseInt($('num').get('value')) + DURATION);
+        } else {
+            $$('.more_link').setStyle('display', 'none');
+        }
 	});
-	
-	// this is the test to see if we need to load more items
-	// basically, if we are close to the bottom, we mimic the user
-	// clicking the link to load more items
-	var infiniteScroll = function(){ 
-		var elt = document.body;
-		if(elt.getScroll().y >= elt.getScrollSize().y - elt.getSize().y - 300) {
-			$$('.outer-container').fireEvent('click:relay(a.more_link)');
-		}
-	};
-	
-	// this defines the frequency of the test
-	infiniteScroll.periodical(250);
 });
