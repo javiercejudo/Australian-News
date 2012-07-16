@@ -1,17 +1,4 @@
-window.addEvent('domready', function() {
-	// this is the test to see if we need to load more items
-    // basically, if we are close to the bottom, we mimic the user
-    // clicking the link to load more items
-    var infiniteScroll = function(){ 
-        var elt = document.body;
-        if (elt.getScroll().y >= elt.getScrollSize().y - 2*elt.getSize().y) {
-            $$('.outer-container').fireEvent('click:relay(a.more_link)');
-        }
-    };
-    
-    // this defines the frequency of the test
-    var timer = infiniteScroll.periodical(300);
-    
+window.addEvent('domready', function() {    
     // the request that will be triggered after the content of the search box
 	// is modified. we create it outside the addEvent so we can cancel previous
 	// requests before they are completed using the parameter link:
@@ -121,4 +108,16 @@ window.addEvent('domready', function() {
             $$('.more_link').setStyle('display', 'none');
         }
 	});
+	
+	// this is the test to see if we need to load more items
+    // basically, if we are close to the bottom, we mimic the user
+    // clicking the link to load more items
+    var infiniteScroll = function(){ 
+        var elt = document.body;
+        if (elt.getScroll().y >= elt.getScrollSize().y - 2*elt.getSize().y) {
+            $$('.outer-container').fireEvent('click:relay(a.more_link)');
+        }
+    };
+    // this defines the frequency of the test
+    var timer = infiniteScroll.periodical(300);
 });
