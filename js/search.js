@@ -98,26 +98,26 @@ window.addEvent('domready', function() {
 	// triggers the request to load more items when the link is clicked
 	$$('.outer-container').addEvent('click:relay(a.more_link)', function(event, target){
 		if(event) { event.preventDefault(); }
-        if (parseInt($('num_showing').get('html')) < parseInt($('num_total').get('html'))){
-	        more_req.get({ 
-		        'q'   : $('q').get('value'),
-		        'num' : $('num').get('value')
-            });
-            //$('num').set('value', parseInt($('num').get('value')) + DURATION);
-        } else {
-            $$('.more_link').setStyle('display', 'none');
-        }
+		if (parseInt($('num_showing').get('html')) < parseInt($('num_total').get('html'))){
+			more_req.get({ 
+				'q'   : $('q').get('value'),
+				'num' : $('num').get('value')
+			});
+			//$('num').set('value', parseInt($('num').get('value')) + DURATION);
+		} else {
+			$$('.more_link').setStyle('display', 'none');
+		}
 	});
 	
 	// this is the test to see if we need to load more items
-    // basically, if we are close to the bottom, we mimic the user
-    // clicking the link to load more items
-    var infiniteScroll = function(){ 
-        var elt = document.body;
-        if (elt.getScroll().y >= elt.getScrollSize().y - 2*elt.getSize().y) {
-            $$('.outer-container').fireEvent('click:relay(a.more_link)');
-        }
-    };
-    // this defines the frequency of the test
-    var timer = infiniteScroll.periodical(300);
+	// basically, if we are close to the bottom, we mimic the user
+	// clicking the link to load more items
+	var infiniteScroll = function(){ 
+		var elt = document.body;
+		if (elt.getScroll().y >= elt.getScrollSize().y - 2*elt.getSize().y) {
+			$$('.outer-container').fireEvent('click:relay(a.more_link)');
+		}
+	};
+	// this defines the frequency of the test
+	var timer = infiniteScroll.periodical(300);
 });
