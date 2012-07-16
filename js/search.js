@@ -18,15 +18,26 @@ window.addEvent('domready', function() {
 	var input_req = new Request({
 		method: 'get',
 		url: 'ajax/search.php',
-		link: 'chain',
+		link: 'cancel',
 		onRequest: function() {
 			$('news-container').setStyle('opacity', '0.5');
 		},
 		onComplete: function(response) {
-			timeout = setTimeout(function () {
-			    $('news-container').set('html', response);
-				$('news-container').setStyle('opacity', '1');
-			}, 0);
+			if (response !== undefined) {
+				timeout = setTimeout(function () {
+					$('news-container').set('html', response);
+					$('news-container').setStyle('opacity', '1');
+				}, 0);
+			}
+		},
+		onFailure: function(response) {
+			if (response.status == 0) {
+				alert('Please check your internet connectivity or reload the page.');
+			} else {
+				alert('Error ' + response.status + '. Please reload the page or contact javier@javiercejudo.com');
+			}
+			$('news-container').setStyle('opacity', '1');
+			clearInterval(timer);
 		}
 	});
 	
@@ -36,30 +47,42 @@ window.addEvent('domready', function() {
 	var more_req = new Request({
 		method: 'get',
 		url: 'ajax/more.php',
-		link: 'ignore',
+		link: 'chain',
 		onRequest: function() {
 			$$('.more_link').setStyle('display', 'none');
 			$('more_loading').setStyle('display', 'block');
 		},
 		onComplete: function(response) {
-			timeout = setTimeout(function () {
-				var auxElement = new Element('ul', {'class': 'news-feed'});
-				auxElement.set('html', response);
-				auxElement.inject($('more-items-container'), 'before');
-				var num_top = parseInt($('num').get('value')) + DURATION;
-				var num_tot = parseInt($('num_total').get('html'));
-                var num_sho;
-                $('more_loading').setStyle('display', 'none');
-				if (num_top >= num_tot) {
-					num_sho = num_tot;
-                    $$('.more_link').setStyle('display', 'none');
-				} else {
-					num_sho = num_top;
-                    $$('.more_link').setStyle('display', 'block');
-				}
-				$('num').set('value', num_top);
-				$('num_showing').set('html', num_sho);
-			}, 0);
+			if (response !== undefined) {
+				timeout = setTimeout(function () {
+					var auxElement = new Element('ul', {'class': 'news-feed'});
+					auxElement.set('html', response);
+					auxElement.inject($('more-items-container'), 'before');
+					var num_top = parseInt($('num').get('value')) + DURATION;
+					var num_tot = parseInt($('num_total').get('html'));
+					var num_sho;
+					$('more_loading').setStyle('display', 'none');
+					if (num_top >= num_tot) {
+						num_sho = num_tot;
+						$$('.more_link').setStyle('display', 'none');
+					} else {
+						num_sho = num_top;
+						$$('.more_link').setStyle('display', 'block');
+					}
+					$('num').set('value', num_top);
+					$('num_showing').set('html', num_sho);
+				}, 0);
+			}
+		},
+		onFailure: function(response) {
+			if (response.status == 0) {
+				alert('Please check your internet connectivity or reload the page.');
+			} else {
+				alert('Error ' + response.status + '. Please reload the page or contact javier@javiercejudo.com');
+			}
+			$$('.more_link').setStyle('display', 'block');
+			$('more_loading').setStyle('display', 'none');
+			clearInterval(timer);
 		}
 	});
 	

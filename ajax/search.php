@@ -14,7 +14,7 @@ $q = '';
 $num = DURATION;
 $skip = 0;
 if (isset($_GET['q']) && !empty($_GET['q'])) {
-	$q = $_GET['q'];
+	$q = trim($_GET['q']);
 }
 
 include DIRINC . 'dynamic_content.php';

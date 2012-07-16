@@ -37,7 +37,7 @@ if ($total_news > 0) {
 		echo '<h1 title="' . $item->title . '">' . $item->title . '</h1>' . "\n";
 		if (strpos($item->description,'<font face=')) 
 		{
-			echo '<div class="description">' . preg_replace("/<p><img[^>]+\></p>/i","",substr($item->description,0,strpos($item->description,'<font face='))) . '</div>' . "\n";
+			echo '<div class="description">' . preg_replace("/<p><img[^>]+\><\/p>/i","",substr($item->description,0,strpos($item->description,'<font face='))) . '</div>' . "\n";
 		}
 		else
 		{

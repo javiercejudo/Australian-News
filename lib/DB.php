@@ -21,7 +21,7 @@ class DB {
 		$stmt->execute($params);
 	}
 	static function get_latest_news($pdo, $num=100, $skip=0,$q=null, &$qq, &$query, &$total_in_database, &$top_suggestion){
-		if (!isset($_GET['q']) || empty($_GET['q'])) { $q = null; }
+		if (!isset($_GET['q']) || empty($q)) { $q = null; }
 		//else { $q = substr($pdo->quote($q), 1, -1); }
 		$sqld = ' SELECT * FROM `news` ';
 		$sqlt = ' SELECT count(*) as total_in_database FROM `news` ';
