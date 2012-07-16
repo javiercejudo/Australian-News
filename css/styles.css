@@ -28,7 +28,7 @@ ul.news-feed li:last-child {
 
 .outer-container {
   width: 75%;
-  min-width: 320px;
+  min-width: 300px;
   max-width: 650px;
   margin: 0 auto;
 }
@@ -50,7 +50,7 @@ ul.news-feed li:last-child {
   -o-transition: all 250ms;
   -webkit-transition: all 250ms;
   transition: all 250ms;
-  white-space: nowrap;
+  white-space: normal; /* nowrap for one line titles */
   overflow-x: hidden;
   text-overflow: ellipsis;
 }
@@ -150,4 +150,8 @@ input[type="search"] {
 
 #news-container {
   margin-top: 45px;
+}
+
+#more_loading {
+  display: none;
 }

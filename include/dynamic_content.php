@@ -51,7 +51,8 @@ if ($total_news > 0) {
 		if ($num < $total_in_database) 
 		{
 			echo '<div class="more-items-container" id="more-items-container">';
-			echo '<a class="more_link" href="?q=' . $q . '&num=' . ($num + DURATION) . '#' . $num  .'">Load more items</a>';
+			echo '<a class="more_link"    href="?q=' . $q . '&num=' . ($num + DURATION) . '#' . $num  .'">Load more stories</a>';
+			echo '<span id="more_loading">Loading...</span>';
 			echo '</div>';
 		}
 	}

@@ -1,7 +1,7 @@
 window.addEvent('domready', function() {
 	// the request that will be triggered after the content of the search box
 	// is modified. we create it outside the addEvent so we can cancel previous
-	// request before they are completed using the parameter link:
+	// requests before they are completed using the parameter link:
 	var input_req = new Request({
 		method: 'get',
 		url: 'ajax/search.php',
@@ -11,19 +11,23 @@ window.addEvent('domready', function() {
 		},
 		onComplete: function(response) {
 			timeout = setTimeout(function () {
-								
 			    $('news-container').set('html', response);
 				$('news-container').setStyle('opacity', '1');
 			}, 0);
 		}
 	});
 	
+	// the request that will be triggered after asking for more items
+	// we create it outside the addEvent so we can ignore following
+	// requests before they are completed using the parameter link:
 	var more_req = new Request({
 		method: 'get',
 		url: 'ajax/more.php',
-		link: 'cancel',
+		link: 'ignore',
 		onRequest: function() {
-			$('news-container').setStyle('opacity', '0.5');
+			//$('news-container').setStyle('opacity', '0.5');
+			$$('.more_link').setStyle('display', 'none');
+			$('more_loading').setStyle('display', 'block');
 		},
 		onComplete: function(response) {
 			timeout = setTimeout(function () {
@@ -40,7 +44,9 @@ window.addEvent('domready', function() {
 				}
 				$('num').set('value', num_top);
 				$('num_showing').set('html', num_sho);
-				$('news-container').setStyle('opacity', '1');
+				//$('news-container').setStyle('opacity', '1');
+				$('more_loading').setStyle('display', 'none');
+				$$('.more_link').setStyle('display', 'block');
 			}, 0);
 		}
 	});
@@ -67,13 +73,26 @@ window.addEvent('domready', function() {
 		$$('.outer-container').fireEvent('click:relay(a.top_suggestion_link)', [event, target]);
 	});
 	
+	// triggers the request to load more items when the link is clicked
 	$$('.outer-container').addEvent('click:relay(a.more_link)', function(event, target){
 		if(event) { event.preventDefault(); }
 		more_req.get({ 
 			'q'   : $('q').get('value'),
 			'num' : $('num').get('value'),
 		});
-		var current_value = $('num').get('value');
-		$('num').set('value', parseInt(current_value) + DURATION);
+		$('num').set('value', parseInt($('num').get('value')) + DURATION);
 	});
+	
+	// this is the test to see if we need to load more items
+	// basically, if we are close to the bottom, we mimic the user
+	// clicking the link to load more items
+	var infiniteScroll = function(){ 
+		var elt = document.body;
+		if(elt.getScroll().y >= elt.getScrollSize().y - elt.getSize().y - 200) {
+			$$('.outer-container').fireEvent('click:relay(a.more_link)');
+		}
+	};
+	
+	// this defines the frequency of the test
+	infiniteScroll.periodical(250);
 });
