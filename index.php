@@ -69,7 +69,7 @@ include DIRINC . 'dynamic_content.php';
 <p class="technical footer">Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a>. 
 © <?php echo date('Y'); ?> Javier Cejudo</p>
 <a href="https://github.com/javiercejudo/Australian-News">
-<img class="git_ribbon" src="assets/fork_red.png" alt="Fork me on GitHub">
+<img class="git_ribbon" src="assets/fork_red.png" height="149" width="149" alt="Fork me on GitHub" title="Fork the repo for this page on GitHub">
 </a>
 </footer>
 <script src="vendor/js/mootools-core.js" type="text/javascript"></script>
