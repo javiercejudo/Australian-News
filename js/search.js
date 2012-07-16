@@ -88,7 +88,7 @@ window.addEvent('domready', function() {
 	// clicking the link to load more items
 	var infiniteScroll = function(){ 
 		var elt = document.body;
-		if(elt.getScroll().y >= elt.getScrollSize().y - elt.getSize().y - 200) {
+		if(elt.getScroll().y >= elt.getScrollSize().y - elt.getSize().y - 300) {
 			$$('.outer-container').fireEvent('click:relay(a.more_link)');
 		}
 	};
