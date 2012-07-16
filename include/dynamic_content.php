@@ -32,7 +32,7 @@ if ($total_news > 0) {
 	}
 	$i = 1;
 	foreach ($news as $item) {
-		echo '<li class="item"><a name="' . $i . '" href="' . $item->link . '" target="_blank">' . "\n";
+		echo '<li class="item"><a name="' . $i . '" href="' . $item->link . '">' . "\n";
 		echo '<p class="pubDate" title="Retrieved: ' . date('M j, Y h:i A', strtotime($item->created)) . '&#10;Published: ' . date('M j, Y h:i A', strtotime($item->pub_date)) . '"> ' . date('M j, Y h:i A', strtotime($item->created)) . ' </p>' . "\n";
 		echo '<h1 title="' . $item->title . '">' . $item->title . '</h1>' . "\n";
 		if (strpos($item->description,'<font face=')) 
@@ -51,7 +51,7 @@ if ($total_news > 0) {
 		if ($num < $total_in_database) 
 		{
 			echo '<div class="more-items-container" id="more-items-container">';
-			echo '<a class="more_link"    href="?q=' . $q . '&num=' . ($num + DURATION) . '#' . $num  .'">Load more stories</a>';
+			echo '<a class="more_link"    href="?q=' . $q . '&amp;num=' . ($num + DURATION) . '#' . $num  .'">Load more stories</a>';
 			echo '<span id="more_loading">Loading...</span>';
 			echo '</div>';
 		}
