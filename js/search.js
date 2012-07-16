@@ -1,5 +1,5 @@
 window.addEvent('domready', function() {    
-    // the request that will be triggered after the content of the search box
+	// the request that will be triggered after the content of the search box
 	// is modified. we create it outside the addEvent so we can cancel previous
 	// requests before they are completed using the parameter link:
 	var input_req = new Request({
