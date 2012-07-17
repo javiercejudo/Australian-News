@@ -34,7 +34,7 @@ window.addEvent('domready', function() {
 	var more_req = new Request({
 		method: 'get',
 		url: 'ajax/more.php',
-		link: 'chain',
+		link: 'ignore',
 		onRequest: function() {
 			$$('.more_link').setStyle('display', 'none');
 			$('more_loading').setStyle('display', 'block');
