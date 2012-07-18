@@ -18,3 +18,4 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 }
 
 include DIRINC . 'dynamic_content.php';
+usleep(250000);
