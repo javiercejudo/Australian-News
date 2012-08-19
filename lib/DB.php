@@ -32,7 +32,7 @@ class DB {
 			$sqld .= $fulltext;
 			$sqlt .= $fulltext;
 		} else {
-			$sqld .= ' ORDER BY `id` DESC ';
+			$sqld .= ' ORDER BY `pub_date` DESC, `id` ';
 		}
 		$sqld .= ' LIMIT ' . $skip . ', ' . $num;
 		$stmtd = $pdo->prepare($sqld);
