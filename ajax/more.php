@@ -3,12 +3,7 @@ require_once '../config.php';
 require_once DIRLIB . 'DB.php';
 require_once DIRLIB . 'News.php';
 
-$pdo = new PDO( 
-    'mysql:host=' . HOST . ';dbname=' . DBNAME, 
-    USERNAME, 
-    PASSWD,
-    array(PDO::ATTR_PERSISTENT => false)
-);
+$pdo = DB::connect();
 
 $q = '';
 $num = DURATION;

@@ -1,6 +1,20 @@
 <?php
 require_once 'News.php';
 class DB {
+	static function connect() {
+		try{
+			$pdo = new PDO( 
+				'mysql:host=' . HOST . ';dbname=' . DBNAME, 
+				USERNAME, 
+				PASSWD,
+				array(PDO::ATTR_PERSISTENT => false)
+			);
+			return $pdo;
+		} catch (PDOException $e) {
+			echo 'The site is down due to an internal error but it should be back soon. We are sorry for the inconvenience.';
+			die;
+		}
+	}
 	static function prepare_insert($pdo) {
 		$sql = 'INSERT INTO `news`
 			(`title`, `description`, `pub_date`, `link`, `guid`, `created`) 
@@ -9,7 +23,7 @@ class DB {
 		$stmt = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		return $stmt;
 	}
-	static function execute_update($stmt,$ap){
+	static function execute_insert($stmt,$ap){
 		$params = array (
 			':title' => $ap[0],
 			':description' => $ap[1],
