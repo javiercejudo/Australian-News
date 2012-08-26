@@ -17,7 +17,7 @@ if ($aux !== false) {
 	$rss_news = $aux->channel->item;
 	$stmt = DB::prepare_insert($pdo);
 	foreach ($rss_news as $item) {
-		$item = new News($item);
+		$item = new News($item, false);
 		$params = array (
 			$item->title(), $item->description(),
 			$item->pub_date(), $item->link(), $item->guid()
