@@ -1,7 +1,9 @@
 <?php
+ini_set('display_errors',1);
 header('Content-type: text/html; charset=utf-8');
 require_once 'config.php';
 require_once DIRLIB . 'DB.php';
+require_once DIRLIB . 'News.php';
 
 $pdo = DB::connect();
 $local_url = 'data/smh.xml';
@@ -16,9 +18,10 @@ if ($aux !== false) {
 	$rss_news = $aux->channel->item;
 	$stmt = DB::prepare_insert($pdo);
 	foreach ($rss_news as $item) {
+		$item = new News($item);
 		$params = array (
-			$item->title, $item->description,
-			$item->pubDate,	$item->link, $item->guid
+			$item->title(), $item->description(),
+			$item->pub_date(), $item->link(), $item->guid()
 		);
 		DB::execute_insert($stmt, $params);
 	}

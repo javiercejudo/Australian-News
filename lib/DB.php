@@ -53,7 +53,7 @@ class DB {
 		$stmtt = $pdo->prepare($sqlt);
 		$stmtd->execute(array(addslashes($q)));
 		$stmtt->execute(array(addslashes($q)));
-		$result = $stmtd->fetchAll(PDO::FETCH_CLASS, 'News');
+		$result = $stmtd->fetchAll(PDO::FETCH_CLASS);
 		$aux = $stmtt->fetch();
 		$total_in_database = $aux['total_in_database'];
 		
@@ -80,7 +80,7 @@ class DB {
 			$stmtt = $pdo->prepare($sqlt);
 			$stmtd->execute($params_aux);
 			$stmtt->execute($params_aux);
-			$result = $stmtd->fetchAll(PDO::FETCH_CLASS, 'News');
+			$result = $stmtd->fetchAll(PDO::FETCH_CLASS);
 			$aux = $stmtt->fetch();
 			$total_in_database = $aux['total_in_database'];
 			// this block handles google suggestions

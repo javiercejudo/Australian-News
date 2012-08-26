@@ -32,16 +32,17 @@ if ($total_news > 0) {
 	}
 	$i = 1;
 	foreach ($news as $item) {
-		echo '<li class="item"><a id="s' . $i . '" href="' . $item->link . '">' . "\n";
-		echo '<p class="pubDate" title="Retrieved: ' . date('M j, Y h:i A', strtotime($item->created)) . '&#10;Published: ' . date('M j, Y h:i A', strtotime($item->pub_date)) . '"> ' . date('M j, Y h:i A', strtotime($item->created)) . ' </p>' . "\n";
-		echo '<h1 title="' . $item->title . '">' . $item->title . '</h1>' . "\n";
-		if (strpos($item->description,'<font face=')) 
+		$item = new News($item);
+		echo '<li class="item"><a id="s' . $i . '" href="' . $item->link() . '">' . "\n";
+		echo '<p class="pubDate" title="Retrieved: ' . date('M j, Y h:i A', strtotime($item->created())) . '&#10;Published: ' . date('M j, Y h:i A', strtotime($item->pub_date())) . '"> ' . date('M j, Y h:i A', strtotime($item->created())) . ' </p>' . "\n";
+		echo '<h1 title="' . $item->title() . '">' . $item->title() . '</h1>' . "\n";
+		if (strpos($item->description(),'<font face=')) 
 		{
-			echo '<div class="description">' . preg_replace("/<p><img[^>]+\><\/p>/i","",substr($item->description,0,strpos($item->description,'<font face='))) . '</div>' . "\n";
+			echo '<div class="description">' . preg_replace("/<p><img[^>]+\><\/p>/i","",substr($item->description(),0,strpos($item->description(),'<font face='))) . '</div>' . "\n";
 		}
 		else
 		{
-			echo '<div class="description">' . preg_replace("/<p><img[^>]+\><\/p>/i", "", $item->description) . '</div>' . "\n";
+			echo '<div class="description">' . preg_replace("/<p><img[^>]+\><\/p>/i", "", $item->description()) . '</div>' . "\n";
 		}
 		echo '</a></li>' . "\n";
 		$i++;
