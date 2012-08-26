@@ -10,12 +10,12 @@ class News {
 	public function __construct($item, $from_db = true) {
 		$this->title       = $item->title;
 		$this->description = $item->description;
-		$this->link        = $item->link;
-		$this->guid        = $item->guid;
-		$this->created     = $item->created;
 		$this->pub_date    = ($from_db === true) ? 
 		                     $item->pub_date : 
 		                     $item->pubDate ;
+		$this->link        = $item->link;
+		$this->guid        = $item->guid;
+		$this->created     = $item->created;
 	}
 
 	function title() {
