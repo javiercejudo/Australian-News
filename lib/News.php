@@ -14,8 +14,8 @@ class News {
 		$this->guid        = $item->guid;
 		$this->created     = $item->created;
 		$this->pub_date    = ($from_db === true) ? 
-			                 $item->pub_date : 
-			                 $item->pubDate ;
+		                     $item->pub_date : 
+		                     $item->pubDate ;
 	}
 
 	function title() {
