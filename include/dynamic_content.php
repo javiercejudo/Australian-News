@@ -3,6 +3,7 @@ $qq = '';
 $query = '';
 $top_suggestion = '';
 $total_in_database = 0;
+$pdo = DB::connect();
 $news = DB::get_latest_news($pdo, $num, $skip, $q, $qq, $query, $total_in_database, $top_suggestion);
 $total_news = count($news);
 if ($total_news > 0) {

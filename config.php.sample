@@ -12,3 +12,5 @@ define('DBNAME', '');
 
 define('BASE', dirname(__FILE__));
 define('DIRLIB', BASE . '/lib/');
+define('DIRINC', BASE . '/include/');
+define('LOCAL_DATA', BASE . '/data/smh.xml');

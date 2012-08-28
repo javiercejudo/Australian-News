@@ -1,9 +1,8 @@
 <?php
+
 require_once '../config.php';
 require_once DIRLIB . 'DB.php';
 require_once DIRLIB . 'News.php';
-
-$pdo = DB::connect();
 
 $q = '';
 $num = DURATION;

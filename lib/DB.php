@@ -1,5 +1,7 @@
 <?php
+
 require_once 'News.php';
+
 class DB {
 	static function connect() {
 		try{
@@ -15,7 +17,24 @@ class DB {
 			die;
 		}
 	}
-	static function prepare_insert($pdo) {
+	
+	static function do_insert ($xml) {
+		$pdo = self::connect();
+		if ($xml !== false) {
+			$rss_news = $xml->channel->item;
+			$stmt = self::prepare_insert($pdo);
+			foreach ($rss_news as $item) {
+				$item = new News($item, false);
+				$params = array (
+					$item->title(), $item->description(),
+					$item->pub_date(), $item->link(), $item->guid()
+				);
+				self::execute_insert($stmt, $params);
+			}
+		}	
+	}
+	
+	private function prepare_insert($pdo) {
 		$sql = 'INSERT INTO `news`
 			(`title`, `description`, `pub_date`, `link`, `guid`, `created`) 
 			VALUES 
@@ -23,7 +42,8 @@ class DB {
 		$stmt = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		return $stmt;
 	}
-	static function execute_insert($stmt,$ap){
+	
+	private function execute_insert($stmt,$ap){
 		$params = array (
 			':title' => $ap[0],
 			':description' => $ap[1],
@@ -34,6 +54,7 @@ class DB {
 		);
 		$stmt->execute($params);
 	}
+	
 	static function get_latest_news($pdo, $num=100, $skip=0,$q=null, &$qq, &$query, &$total_in_database, &$top_suggestion){
 		if (!isset($_GET['q']) || empty($q)) { $q = null; }
 		if (strlen($q) > 3) {
@@ -60,6 +81,7 @@ class DB {
 		if (!isset($result) || count($result) < 1 || strlen($q) < 4) {
 			$sqld = ' SELECT * FROM `news` ';
 			$sqlt = ' SELECT count(*) as total_in_database FROM `news` ';
+			$params_aux = array();
 			if ($q !== null) {
 				$where_literal = ' WHERE ';
 				$sqld .= $where_literal;
@@ -89,16 +111,29 @@ class DB {
 			$result = $stmtd->fetchAll(PDO::FETCH_CLASS);
 			$aux = $stmtt->fetch();
 			$total_in_database = $aux['total_in_database'];
-			// this block handles google suggestions
-			if ($total_in_database > -1 && $q != null) {
-				$suggestions = utf8_encode(file_get_contents('http://suggestqueries.google.com/complete/search?hl=en&cr=countryAU&client=firefox&q=' . str_replace(' ','+',addslashes($q))));
-				$sug_aux1 = preg_replace('/[\[\]\"]/','',$suggestions);
-				$sug_aux2 = array_filter(explode(',',$sug_aux1));
-				if (count($sug_aux2)>1) $top_suggestion = $sug_aux2[1];
-			}
+		}
+		// this block handles google suggestions
+		if ($total_in_database < 10000 && strlen($q) > 3) {
+			$top_suggestion = self::get_top_suggestion($q);
 		}
 		$qq = trim($q);
 		$query = $sqld;
 		return $result;
+	}
+	
+	private function get_top_suggestion ($q) {
+		$suggestions = utf8_encode(
+		    file_get_contents(
+		        'http://suggestqueries.google.com/complete/search?hl=en&cr=countryAUS&client=firefox&q=' .
+		        str_replace(' ','+',addslashes($q))
+		    )
+		);
+		$sug_aux1 = preg_replace('/[\[\]\"]/','', $suggestions);
+		$sug_aux2 = array_filter(explode(',', $sug_aux1));
+		$top_suggestion = '';
+		if (count($sug_aux2)>1) {
+			$top_suggestion = $sug_aux2[1];
+		}
+		return $top_suggestion;
 	}
 }

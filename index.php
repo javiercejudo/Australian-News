@@ -1,42 +1,17 @@
 <?php
 header('Content-type: text/html; charset=utf-8');
 require_once 'config.php';
+require_once DIRLIB . 'App.php';
 require_once DIRLIB . 'DB.php';
 require_once DIRLIB . 'News.php';
 
-$pdo = DB::connect();
-$local_url = 'data/smh.xml';
-if (is_file($local_url) && date('U')-filemtime($local_url) < 60*5+10) {
-	$xml_string = file_get_contents($local_url);
-} else {
-	$xml_string = file_get_contents(SOURCE);
-	file_put_contents($local_url, $xml_string);
-}
-$aux = @simplexml_load_string($xml_string);
-if ($aux !== false) {
-	$rss_news = $aux->channel->item;
-	$stmt = DB::prepare_insert($pdo);
-	foreach ($rss_news as $item) {
-		$item = new News($item, false);
-		$params = array (
-			$item->title(), $item->description(),
-			$item->pub_date(), $item->link(), $item->guid()
-		);
-		DB::execute_insert($stmt, $params);
-	}
-}
-$q = '';
-$num = DURATION;
-if (isset($_GET['num']) && !empty($_GET['num'])) {
-	$num = $_GET['num'];
-}
-if (isset($_GET['ns'])) {
-	$num = DURATION;
-}
-$skip = 0;
-if (isset($_GET['q']) && !empty($_GET['q'])) {
-	$q = trim($_GET['q']);
-}
+$xml = App::load_XML();
+DB::do_insert($xml);
+
+$num  = App::set_num();
+$skip = App::set_skip();
+$q    = App::set_q();
+
 ?>
 <!DOCTYPE html>
 <meta charset="UTF-8" />

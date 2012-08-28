@@ -1,10 +1,8 @@
 <?php
-usleep(250000);
+//usleep(250000);
 require_once '../config.php';
 require_once DIRLIB . 'DB.php';
 require_once DIRLIB . 'News.php';
-
-$pdo = DB::connect();
 
 $q = '';
 $num = DURATION;
