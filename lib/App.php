@@ -17,13 +17,16 @@ class App {
 		if (isset($_GET['ns'])) {
 			return DURATION;
 		}
-		if (isset($_GET['num']) && is_int($_GET['num'])) {
+		if (isset($_GET['num']) && !empty($_GET['num']) && intval($_GET['num']) > 0) {
 			return $_GET['num'];
 		}
 		return DURATION;
 	}
 	
 	static public function set_skip() {
+		if (isset($_GET['skip']) && !empty($_GET['skip']) && intval($_GET['skip']) > 0) {
+			return $_GET['skip'];
+		}
 		return 0;
 	}
 	

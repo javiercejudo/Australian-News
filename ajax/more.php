@@ -14,5 +14,5 @@ if (isset($_GET['num']) && !empty($_GET['num'])) {
 	$num = DURATION;
 	$skip = $_GET['num'];
 }
-
+$load_raw = true;
 include DIRINC . 'dynamic_content.php';

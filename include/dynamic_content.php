@@ -7,7 +7,7 @@ $pdo = DB::connect();
 $news = DB::get_latest_news($pdo, $num, $skip, $q, $qq, $query, $total_in_database, $top_suggestion);
 $total_news = count($news);
 if ($total_news > 0) {
-	if ($skip < 1) {
+	if ($skip < 1 || !$load_raw) {
 		echo '<div class="no-news total-results">';
 		if (!empty($qq) && !empty($top_suggestion) && $qq !== $top_suggestion)
 		{
@@ -24,6 +24,9 @@ if ($total_news > 0) {
 		}
 		else {
 			echo 'stored';
+		}
+		if ($skip > 0) {
+			echo ' (page ' . ceil(1 + $skip / DURATION) . ')';
 		}
 		echo '</p>';
 		if (!empty($query)) {
@@ -49,18 +52,18 @@ if ($total_news > 0) {
 		echo '</a></li>' . "\n";
 		$i++;
 	}
-	if ($skip < 1) {
+	if ($skip < 1 || !$load_raw) {
 		echo '</ul>';
-		if ($num < $total_in_database) 
+		if ($skip + DURATION < $total_in_database) 
 		{
 			echo '<div class="more-items-container" id="more-items-container">';
-			echo '<a class="more_link"    href="?q=' . $q . '&amp;num=' . ($num + DURATION) . '#s' . $num  .'">Load more stories</a>';
+			echo '<a class="more_link"    href="?q=' . $q . '&amp;skip=' . ($skip + DURATION) . '">Load more stories</a>';
 			echo '<span id="more_loading">Loading...</span>';
 			echo '</div>';
 		}
 	}
 } else {
-	if ($skip < 1) {
+	if ($skip < 1 || !$load_raw) {
 		echo '<div class="no-news total-results">';
 		if (!empty($top_suggestion) && $qq !== $top_suggestion)
 		{
