@@ -42,6 +42,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 <meta charset="UTF-8" />
 <title>Australian News | Javier Cejudo</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css" href="vendor/css/stroll.css">
 <body>
 <div class="outer-container">
 <form name="search-form" action="./" method="GET">
@@ -66,6 +67,7 @@ include DIRINC . 'dynamic_content.php';
 </a>
 </footer>
 <script src="vendor/js/mootools-core.js" type="text/javascript"></script>
+<script src="vendor/js/stroll.js" type="text/javascript"></script>
 <script src="js/search.js" type="text/javascript"></script>
 <script type="text/javascript">
 	var DURATION = <?= DURATION ?>;

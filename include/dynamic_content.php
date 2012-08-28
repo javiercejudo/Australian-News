@@ -11,6 +11,7 @@ if ($total_news > 0) {
 		if (!empty($qq) && !empty($top_suggestion) && $qq !== $top_suggestion)
 		{
 			echo '<p>Maybe you are searching for "<a class="top_suggestion_link" href="./?q=' . $top_suggestion . '">' . $top_suggestion . '</a>".</p>';
+			//echo '<p>Search on Google: "<a class="top_suggestion_link" href="http://google.com/ncr?q=' . $top_suggestion . '">' . $top_suggestion . '</a>".</p>';
 		}
 		echo '<p>Showing <span id="num_showing">' . $total_news . '</span> stories';
 		if (!empty($qq)) {
@@ -28,7 +29,7 @@ if ($total_news > 0) {
 			//echo '<p>Debug :: ' . $query . '</p>';
 		}
 		echo '</div>';
-		echo '<ul class="news-feed">';
+		echo '<ul class="news-feed stroll-class">';
 	}
 	$i = 1;
 	foreach ($news as $item) {
@@ -63,6 +64,7 @@ if ($total_news > 0) {
 		if (!empty($top_suggestion) && $qq !== $top_suggestion)
 		{
 			echo '<p>Maybe you meant "<a class="top_suggestion_link" href="./?q=' . $top_suggestion . '">' . $top_suggestion . '</a>".</p>';
+			//echo '<p>Search on Google: "<a class="" href="http://google.com/?q=' . $top_suggestion . '">' . $top_suggestion . '</a>".</p>';
 		}
 		echo'<p>No relevant stories were found for "' . $qq . '".</p>';
 		if (!empty($query)) {
