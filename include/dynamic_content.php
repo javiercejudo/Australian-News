@@ -26,7 +26,8 @@ if ($total_news > 0) {
 			echo 'stored';
 		}
 		if ($skip > 0) {
-			echo ' (page ' . ceil(1 + $skip / DURATION) . ')';
+			echo ' (' . $skip . ' results skipped)';
+			//echo ' (page ' . ceil(1 + $skip / $num) . '/' . ceil((($num - ($skip % $num)) % $num + $total_in_database) / $num) . ')';
 		}
 		echo '</p>';
 		if (!empty($query)) {
@@ -54,10 +55,10 @@ if ($total_news > 0) {
 	}
 	if ($skip < 1 || !$load_raw) {
 		echo '</ul>';
-		if ($skip + DURATION < $total_in_database) 
+		if ($skip + $num < $total_in_database) 
 		{
 			echo '<div class="more-items-container" id="more-items-container">';
-			echo '<a class="more_link"    href="?q=' . $q . '&amp;skip=' . ($skip + DURATION) . '">Load more stories</a>';
+			echo '<a class="more_link"    href="?q=' . $q . '&amp;num=' . ($num) . '&amp;skip=' . ($skip + $num) . '">Load more stories</a>';
 			echo '<span id="more_loading">Loading...</span>';
 			echo '</div>';
 		}

@@ -113,7 +113,7 @@ class DB {
 			$total_in_database = $aux['total_in_database'];
 		}
 		// this block handles google suggestions
-		if ($total_in_database < 10000 && strlen($q) > 3) {
+		if ($total_in_database < 10000 && $skip < 1 && strlen($q) > 3) {
 			$top_suggestion = self::get_top_suggestion($q);
 		}
 		$qq = trim($q);

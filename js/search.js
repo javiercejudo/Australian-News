@@ -57,6 +57,8 @@ window.addEvent('domready', function() {
 						$$('.more_link').setStyle('display', 'block');
 					}
 					$('num').set('value', num_top);
+					var prev_skip = parseInt($('skipped').get('value'), 10);
+					$('skipped').set('value', prev_skip + DURATION);
 					$('num_showing').set('html', num_sho);
 				}, 0);
 			}
@@ -78,6 +80,7 @@ window.addEvent('domready', function() {
 	$('q').addEvent('input', function(event){
 		input_req.get({ 'q' : $('q').get('value') });
 		$('num').set('value', DURATION);
+		$('skipped').set('value', 0);
 	});
 	
 	// when the suggestion is clicked, this brings it into the search box
@@ -98,10 +101,11 @@ window.addEvent('domready', function() {
 	// triggers the request to load more items when the link is clicked
 	$$('.outer-container').addEvent('click:relay(a.more_link)', function(event, target){
 		if(event) { event.preventDefault(); }
-		if (parseInt($('num_showing').get('html')) < parseInt($('num_total').get('html'))){
+		if (parseInt($('skipped').get('value')) + parseInt($('num').get('value')) < parseInt($('num_total').get('html'))){
 			more_req.get({ 
-				'q'   : $('q').get('value'),
-				'num' : $('num').get('value')
+				'q'    : $('q').get('value'),
+				'num'  : $('num').get('value'),
+				'skip' : $('skipped').get('value')
 			});
 			//$('num').set('value', parseInt($('num').get('value')) + DURATION);
 		} else {

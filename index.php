@@ -23,6 +23,7 @@ $q    = App::set_q();
 <form name="search-form" action="./" method="GET">
 <input type="search" autocomplete="off" autofocus="autofocus" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" />
 <input type="hidden" id="num" name="num" value="<?= $num ?>" />
+<input type="hidden" id="skipped" name="skipped" value="<?= $skip ?>" />
 <input type="hidden" name="ns" value='true' />
 <!--<input type="text" id="total_in_database" name="total_in_database" value="" />
 <input type="text" id="skip" name="skip" value="" />-->
@@ -45,7 +46,7 @@ include DIRINC . 'dynamic_content.php';
 <script src="vendor/js/stroll.js" type="text/javascript"></script>
 <script src="js/search.js" type="text/javascript"></script>
 <script type="text/javascript">
-	var DURATION = <?= DURATION ?>;
+	var DURATION = parseInt(<?= DURATION ?>, 10);
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-33442040-1']);
 	_gaq.push(['_trackPageview']);
