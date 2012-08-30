@@ -31,7 +31,8 @@ class DB {
 				);
 				self::execute_insert($stmt, $params);
 			}
-		}	
+			self::delete_duplicates($pdo);
+		}
 	}
 	
 	private function prepare_insert($pdo) {
@@ -53,6 +54,12 @@ class DB {
 			':created' => date('Y-m-d H:i:s')
 		);
 		$stmt->execute($params);
+	}
+	
+	private function delete_duplicates($pdo) {
+		$sql = 'DELETE n2 FROM news n1 JOIN news n2 ON (n1.title=n2.title AND n1.description=n2.description AND n1.id < n2.id)';
+		var_dump($sql);
+		$pdo->exec($sql);
 	}
 	
 	static function get_latest_news($pdo, $num=100, $skip=0,$q=null, &$qq, &$query, &$total_in_database, &$top_suggestion){
