@@ -58,7 +58,6 @@ class DB {
 	
 	private function delete_duplicates($pdo) {
 		$sql = 'DELETE n2 FROM news n1 JOIN news n2 ON (n1.title=n2.title AND n1.description=n2.description AND n1.id < n2.id)';
-		var_dump($sql);
 		$pdo->exec($sql);
 	}
 	
