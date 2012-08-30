@@ -5,8 +5,7 @@ require_once DIRLIB . 'App.php';
 require_once DIRLIB . 'DB.php';
 require_once DIRLIB . 'News.php';
 
-$xml = App::load_XML();
-DB::do_insert($xml);
+App::load_XML();
 
 $num  = App::set_num();
 $skip = App::set_skip();
