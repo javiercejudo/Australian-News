@@ -1,17 +1,19 @@
 <?php
 
+require_once DIRLIB . 'DB.php';
+
 class App {
 
 	static public function load_XML() {
 		$local_url = LOCAL_DATA;
 		if (is_file($local_url) && date('U') - filemtime($local_url) < 60*5+10) {
-			// do nothing for now
+			$xml_string = file_get_contents($local_url);
 		} else {
 			$xml_string = file_get_contents(SOURCE);
 			file_put_contents($local_url, $xml_string);
-			$xml = simplexml_load_string($xml_string);
-			DB::do_insert($xml);
 		}
+		$xml = simplexml_load_string($xml_string);
+		DB::do_insert($xml);
 	}
 	
 	static public function set_num() {

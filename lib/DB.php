@@ -13,7 +13,8 @@ class DB {
 			);
 			return $pdo;
 		} catch (PDOException $e) {
-			echo 'The site is down due to an internal error but it should be back soon. We are sorry for the inconvenience.';
+			echo '<p>The site is down due to an internal error but it should be back soon. We are sorry for the inconvenience.</p>' . "\n";
+			echo '<p>Error: ' . $e->getMessage() . '</p>' . "\n";
 			die;
 		}
 	}
