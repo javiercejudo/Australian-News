@@ -10,5 +10,8 @@ $skip = 0;
 if (isset($_GET['q']) && !empty($_GET['q'])) {
 	$q = trim($_GET['q']);
 }
+if (isset($_GET['num'])) {
+	$num = $_GET['num'];
+}
 $load_raw = true;
 include DIRINC . 'dynamic_content.php';

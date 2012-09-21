@@ -45,10 +45,14 @@ window.addEvent('domready', function() {
 					var auxElement = new Element('ul', {'class': 'news-feed'});
 					auxElement.set('html', response);
 					auxElement.inject($('more-items-container'), 'before');
-					var num_top = parseInt($('num').get('value')) + DURATION;
-					var num_tot = parseInt($('num_total').get('html'));
+					var num_top = parseInt($('num').get('value'), 10) + parseInt($('items_per_page').get('value'), 10);
+					var num_tot = parseInt($('num_total').get('html'), 10);
 					var num_sho;
 					$('more_loading').setStyle('display', 'none');
+					console.log("Number showing: " + num_top);
+					console.log("NUM: " + parseInt($('num').get('value'), 10));
+					console.log("IPP: " + parseInt($('items_per_page').get('value'), 10));
+					console.log("Number total: " + num_tot);
 					if (num_top >= num_tot) {
 						num_sho = num_tot;
 						$$('.more_link').setStyle('display', 'none');
@@ -57,8 +61,7 @@ window.addEvent('domready', function() {
 						$$('.more_link').setStyle('display', 'block');
 					}
 					$('num').set('value', num_top);
-					var prev_skip = parseInt($('skipped').get('value'), 10);
-					$('skipped').set('value', prev_skip + DURATION);
+					$('skipped').set('value', parseInt($('skipped').get('value'), 10) + parseInt($('items_per_page').get('value'), 10));
 					$('num_showing').set('html', num_sho);
 				}, 0);
 			}
@@ -78,8 +81,11 @@ window.addEvent('domready', function() {
 	// makes the request whenever we tap a key that actually modifies the
 	// content of the search box
 	$('q').addEvent('input', function(event){
-		input_req.get({ 'q' : $('q').get('value') });
-		$('num').set('value', DURATION);
+		input_req.get({ 
+			'q'   : $('q').get('value') ,
+			'num' : $('items_per_page').get('value')
+		});
+		$('num').set('value', $('items_per_page').get('value'));
 		$('skipped').set('value', 0);
 	});
 	
@@ -101,10 +107,13 @@ window.addEvent('domready', function() {
 	// triggers the request to load more items when the link is clicked
 	$$('.outer-container').addEvent('click:relay(a.more_link)', function(event, target){
 		if(event) { event.preventDefault(); }
-		if (parseInt($('skipped').get('value')) + parseInt($('num').get('value')) < parseInt($('num_total').get('html'))){
+		if (parseInt($('skipped').get('value')) + parseInt($('items_per_page').get('value')) < parseInt($('num_total').get('html'))){
+			console.log("Searching for: " + $('q').get('value'));
+			console.log("Number of stories: " + $('num').get('value'));
+			console.log("Skipping: " + $('skipped').get('value'));
 			more_req.get({ 
 				'q'    : $('q').get('value'),
-				'num'  : $('num').get('value'),
+				'num'  : $('items_per_page').get('value'),
 				'skip' : $('skipped').get('value')
 			});
 			//$('num').set('value', parseInt($('num').get('value')) + DURATION);

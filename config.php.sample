@@ -5,7 +5,7 @@ date_default_timezone_set('Australia/Sydney');
 define('SOURCE', 'http://feeds.smh.com.au/rssheadlines/national.xml');
 define('DURATION', 10);
 
-define('HOST', '');
+define('HOST', ''); // if localhost, use 127.0.0.1 explicitly
 define('USERNAME', '');
 define('PASSWD', '');
 define('DBNAME', '');

@@ -22,12 +22,13 @@ $q    = App::set_q();
 <form name="search-form" action="./" method="GET">
 <input type="search" autocomplete="off" autofocus="autofocus" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" />
 <input type="hidden" id="num" name="num" value="<?= $num ?>" />
-<input type="hidden" id="skipped" name="skipped" value="<?= $skip ?>" />
-<input type="hidden" name="ns" value='true' />
 <!--<input type="text" id="total_in_database" name="total_in_database" value="" />
 <input type="text" id="skip" name="skip" value="" />-->
 <!--<input type="submit" name="dosearch" value="Search" />-->
 </form>
+<input type="hidden" name="ns" value='true' />
+<input type="hidden" id="items_per_page" name="items_per_page" value="<?= $num ?>" />
+<input type="hidden" id="skipped" name="skipped" value="<?= $skip ?>" />
 <div id="news-container">
 <?php 
 include DIRINC . 'dynamic_content.php'; 
@@ -35,8 +36,10 @@ include DIRINC . 'dynamic_content.php';
 </div>
 </div>
 <footer>
-<p class="technical footer">Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a>. 
-© <?php echo date('Y'); ?> Javier Cejudo</p>
+<p class="technical footer">
+	Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a>. 
+	© <?php echo date('Y'); ?> Javier Cejudo
+</p>
 <a href="https://github.com/javiercejudo/Australian-News">
 <img class="git_ribbon" src="assets/fork_red.png" height="149" width="149" alt="Fork me on GitHub" title="Fork the repo for this page on GitHub">
 </a>
