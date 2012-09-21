@@ -26,8 +26,10 @@ if ($total_news > 0) {
 			echo 'stored';
 		}
 		if ($skip > 0) {
-			echo ' (' . $skip . ' results skipped)';
-			//echo ' (page ' . ceil(1 + $skip / $num) . '/' . ceil((($num - ($skip % $num)) % $num + $total_in_database) / $num) . ')';
+			$info_offset_js    = ' (' . $skip . ' results skipped)';
+			$info_offset_no_js = ' (page ' . ceil(1 + $skip / $num) . '/' . ceil((($num - ($skip % $num)) % $num + $total_in_database) / $num) . ')';
+			echo '<script type="text/javascript">document.write("' . $info_offset_js . '")</script>';
+			echo '<noscript>' . $info_offset_no_js . '</noscript>';
 		}
 		echo '</p>';
 		if (!empty($query)) {
