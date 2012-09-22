@@ -5,7 +5,9 @@ date_default_timezone_set('Australia/Sydney');
 define('SOURCE', 'http://feeds.smh.com.au/rssheadlines/national.xml');
 define('DURATION', 10);
 
-define('HOST', ''); // if localhost, use 127.0.0.1 explicitly
+// If HOST is localhost, please use 127.0.0.1 explicitly for the job in cron 
+// folder to work. Reason here: http://stackoverflow.com/questions/1819592
+define('HOST', '');
 define('USERNAME', '');
 define('PASSWD', '');
 define('DBNAME', '');
@@ -14,3 +16,15 @@ define('BASE', dirname(__FILE__));
 define('DIRLIB', BASE . '/lib/');
 define('DIRINC', BASE . '/include/');
 define('LOCAL_DATA', BASE . '/data/smh.xml');
+
+// if false, suggestions are never offered
+define('SHOW_SUGGESTIONS', true);
+
+// if number of results > this number, no suggestions are offered
+define('MAX_RESULTS_FOR_SUGGESTIONS', 999);
+
+// no suggestions offered for queries shorter than this number
+define('MIN_QUERY_LENGTH_FOR_SUGGESTION', 4);
+
+// queries shorther than this number never use fulltext search
+define('MIN_QUERY_LENGTH_FOR_FULLTEXT', 4);

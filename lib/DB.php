@@ -64,12 +64,14 @@ class DB {
 	
 	static function get_latest_news($pdo, $num=100, $skip=0,$q=null, &$qq, &$query, &$total_in_database, &$top_suggestion){
 		if (!isset($_GET['q']) || empty($q)) { $q = null; }
-		if (strlen($q) > 3) {
+		$search_type = '';
+		if (strlen($q) >= MIN_QUERY_LENGTH_FOR_FULLTEXT) {
+			$search_type = 'fulltext';
 			$sqld = ' SELECT * FROM `news` ';
 			$sqlt = ' SELECT count(*) as total_in_database FROM `news` ';
 			$fulltext = ' WHERE MATCH (`title`,`description`) AGAINST (?) ';
-			//$fulltext .= ' WHERE MATCH (`title`,`description`) AGAINST (? IN BOOLEAN MODE) ';
-			//$fulltext .= ' WHERE MATCH (`title`,`description`) AGAINST (? WITH QUERY EXPANSION) ';
+			//$fulltext = ' WHERE MATCH (`title`,`description`) AGAINST (? IN BOOLEAN MODE) ';
+			//$fulltext = ' WHERE MATCH (`title`,`description`) AGAINST (? WITH QUERY EXPANSION) ';
 			$sqld .= $fulltext;
 			$sqlt .= $fulltext;
 			$sqld .= ' LIMIT ' . $skip . ', ' . $num;
@@ -85,7 +87,8 @@ class DB {
 		
 		// fallback in the case that the fulltext search returns no results
 		// this is usual within the first strokes given our instant approach
-		if (!isset($result) || count($result) < 1 || strlen($q) < 4) {
+		if (!isset($result) || count($result) < 1 || strlen($q) < MIN_QUERY_LENGTH_FOR_FULLTEXT) {
+			$search_type = 'like';
 			$sqld = ' SELECT * FROM `news` ';
 			$sqlt = ' SELECT count(*) as total_in_database FROM `news` ';
 			$params_aux = array();
@@ -120,7 +123,9 @@ class DB {
 			$total_in_database = $aux['total_in_database'];
 		}
 		// this block handles google suggestions
-		if ($total_in_database < 10000 && $skip < 1 && strlen($q) > 3) {
+		if (SHOW_SUGGESTIONS && strlen($q) >= MIN_QUERY_LENGTH_FOR_SUGGESTION && $skip < 1
+		    && ($total_in_database < MAX_RESULTS_FOR_SUGGESTIONS || $search_type === 'like'))
+		{
 			$top_suggestion = self::get_top_suggestion($q);
 		}
 		$qq = trim($q);
