@@ -20,7 +20,7 @@ $q    = App::set_q();
 <body>
 <div class="outer-container">
 <form name="search-form" action="./" method="GET">
-<input type="search" autocomplete="off" autofocus="autofocus" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" />
+<input type="search" autocomplete="off" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" />
 <input type="hidden" id="num" name="num" value="<?= $num ?>" />
 <!--<input type="text" id="total_in_database" name="total_in_database" value="" />
 <input type="text" id="skip" name="skip" value="" />-->
