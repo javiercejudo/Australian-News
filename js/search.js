@@ -87,6 +87,7 @@ window.addEvent('domready', function() {
 		});
 		$('num').set('value', $('items_per_page').get('value'));
 		$('skipped').set('value', 0);
+		location.hash = "#q=" + $('q').get('value');
 	});
 	
 	// when the suggestion is clicked, this brings it into the search box
