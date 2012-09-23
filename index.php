@@ -21,12 +21,13 @@ $q    = App::set_q();
 <div class="outer-container">
 <form name="search-form" action="./" method="GET">
 <input type="search" autocomplete="off" placeholder="Search SMH national news..." id="q" name="q" value="<?= $q ?>" />
-<input type="hidden" id="num" name="num" value="<?= $num ?>" />
+
+<input type="hidden" name="ns" value='true' />
 <!--<input type="text" id="total_in_database" name="total_in_database" value="" />
 <input type="text" id="skip" name="skip" value="" />-->
 <!--<input type="submit" name="dosearch" value="Search" />-->
 </form>
-<input type="hidden" name="ns" value='true' />
+<input type="hidden" id="num" name="num" value="<?= $num ?>" />
 <input type="hidden" id="items_per_page" name="items_per_page" value="<?= $num ?>" />
 <input type="hidden" id="skipped" name="skipped" value="<?= $skip ?>" />
 <div id="news-container">
