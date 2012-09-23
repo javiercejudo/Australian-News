@@ -99,12 +99,15 @@ class DB {
 				$params_aux = array();
 				foreach (explode(" ", $q) as $piece) {
 					if (trim($piece) !== '') {
-						$likes = '`title` LIKE ? OR `description` LIKE ? OR ';
+						$likes = '`title` LIKE ? OR `description` LIKE ? OR `title` LIKE ? OR `description` LIKE ? OR ';
 						$sqld .= $likes;
 						$sqlt .= $likes;
-						$likes_params = '%' . addslashes($piece) . '%';
-						$params_aux[] = $likes_params;
-						$params_aux[] = $likes_params;
+						$likes_params1 = '' . addslashes($piece) . '%';
+						$likes_params2 = '% ' . addslashes($piece) . '%';
+						$params_aux[] = $likes_params1;
+						$params_aux[] = $likes_params1;
+						$params_aux[] = $likes_params2;
+						$params_aux[] = $likes_params2;
 					}
 				}
 				$false_literal = ' 1=2 ';
