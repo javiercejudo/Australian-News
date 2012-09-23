@@ -1,4 +1,15 @@
-window.addEvent('domready', function() {    
+window.addEvent('domready', function() {	
+	// defines the event that we will use to load results when the hash changes
+	window.addEvent('hashchange', function(newhash) {
+		$('q').set('value', location.hash.substr(3)).focus();
+		input_req.get({ 
+			'q'   : location.hash.substr(3) ,
+			'num' : $('items_per_page').get('value')
+		});
+		$('num').set('value', $('items_per_page').get('value'));
+		$('skipped').set('value', 0);
+	});
+	
 	// the request that will be triggered after the content of the search box
 	// is modified. we create it outside the addEvent so we can cancel previous
 	// requests before they are completed using the parameter link:
@@ -78,25 +89,22 @@ window.addEvent('domready', function() {
 		}
 	});
 	
-	// makes the request whenever we tap a key that actually modifies the
-	// content of the search box
+	// changes hash, what will trigger the request whenever we tap a key that 
+	// actually modifies the content of the search box
 	$('q').addEvent('input', function(event){
-		input_req.get({ 
-			'q'   : $('q').get('value') ,
-			'num' : $('items_per_page').get('value')
-		});
-		$('num').set('value', $('items_per_page').get('value'));
-		$('skipped').set('value', 0);
-		location.hash = "#q=" + $('q').get('value');
+		window.sethash("#q=" + $('q').get('value'));
 	});
+	
+	// handles the initial hash, if it exists
+	if (location.hash.length > 1) {
+		window.fireEvent('hashchange');
+	}
 	
 	// when the suggestion is clicked, this brings it into the search box
 	// and refreshes the results
 	$$('.outer-container').addEvent('click:relay(a.top_suggestion_link)', function(event, target){
 		if(event) { event.preventDefault(); }
-		$('q').set('value', target.get('html'));
-		$('q').fireEvent('input');
-		$('q').focus();
+		window.sethash("#q=" + target.get('html'));
 	});
 	
 	// allows the tab button to mimic the behavior of a click on a suggestion
@@ -108,7 +116,7 @@ window.addEvent('domready', function() {
 	// triggers the request to load more items when the link is clicked
 	$$('.outer-container').addEvent('click:relay(a.more_link)', function(event, target){
 		if(event) { event.preventDefault(); }
-		if (parseInt($('skipped').get('value')) + parseInt($('items_per_page').get('value')) < parseInt($('num_total').get('html'))){
+		if ($('num_total') != undefined && parseInt($('skipped').get('value')) + parseInt($('items_per_page').get('value')) < parseInt($('num_total').get('html'))){
 			console.log("Searching for: " + $('q').get('value'));
 			console.log("Number of stories: " + $('num').get('value'));
 			console.log("Skipping: " + $('skipped').get('value'));
@@ -117,7 +125,6 @@ window.addEvent('domready', function() {
 				'num'  : $('items_per_page').get('value'),
 				'skip' : $('skipped').get('value')
 			});
-			//$('num').set('value', parseInt($('num').get('value')) + DURATION);
 		} else {
 			$$('.more_link').setStyle('display', 'none');
 		}

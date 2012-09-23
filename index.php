@@ -31,6 +31,7 @@ $q    = App::set_q();
 <input type="hidden" id="items_per_page" name="items_per_page" value="<?= $num ?>" />
 <input type="hidden" id="skipped" name="skipped" value="<?= $skip ?>" />
 <div id="news-container">
+<!--<script type="text/javascript">document.write('Loading...')</script>-->
 <?php 
 include DIRINC . 'dynamic_content.php'; 
 ?>
@@ -46,6 +47,7 @@ include DIRINC . 'dynamic_content.php';
 </a>
 </footer>
 <script src="vendor/js/mootools-core.js" type="text/javascript"></script>
+<script src="vendor/js/onhashchange.js" type="text/javascript"></script>
 <script src="vendor/js/stroll.js" type="text/javascript"></script>
 <script src="js/search.js" type="text/javascript"></script>
 <script type="text/javascript">
