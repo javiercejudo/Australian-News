@@ -11,6 +11,7 @@ define('HOST', '');
 define('USERNAME', '');
 define('PASSWD', '');
 define('DBNAME', '');
+define('NEWSTABLE', 'news'); // you might not need to change this
 
 define('BASE', dirname(__FILE__));
 define('DIRLIB', BASE . '/lib/');

@@ -11,6 +11,7 @@ class DB {
 				PASSWD,
 				array(PDO::ATTR_PERSISTENT => false)
 			);
+			$pdo->exec("SET NAMES utf8");
 			return $pdo;
 		} catch (PDOException $e) {
 			echo '<p>The site is down due to an internal error but it should be back soon. We are sorry for the inconvenience.</p>' . "\n";
@@ -37,7 +38,7 @@ class DB {
 	}
 	
 	private function prepare_insert($pdo) {
-		$sql = 'INSERT INTO `news`
+		$sql = 'INSERT INTO `' . NEWSTABLE . '`
 			(`title`, `description`, `pub_date`, `link`, `guid`, `created`) 
 			VALUES 
 			(:title,:description,:pub_date,:link,:guid,:created)';
@@ -58,7 +59,7 @@ class DB {
 	}
 	
 	private function delete_duplicates($pdo) {
-		$sql = 'DELETE n2 FROM news n1 JOIN news n2 ON (n1.title=n2.title AND n1.description=n2.description AND n1.id < n2.id)';
+		$sql = 'DELETE n2 FROM ' . NEWSTABLE . ' n1 JOIN ' . NEWSTABLE . ' n2 ON (n1.title=n2.title AND n1.description=n2.description AND n1.id < n2.id)';
 		$pdo->exec($sql);
 	}
 	
@@ -67,8 +68,8 @@ class DB {
 		$search_type = '';
 		if (strlen($q) >= MIN_QUERY_LENGTH_FOR_FULLTEXT) {
 			$search_type = 'fulltext';
-			$sqld = ' SELECT * FROM `news` ';
-			$sqlt = ' SELECT count(*) as total_in_database FROM `news` ';
+			$sqld = ' SELECT * FROM `' . NEWSTABLE . '` ';
+			$sqlt = ' SELECT count(*) as total_in_database FROM `' . NEWSTABLE . '` ';
 			$fulltext = ' WHERE MATCH (`title`,`description`) AGAINST (?) ';
 			//$fulltext = ' WHERE MATCH (`title`,`description`) AGAINST (? IN BOOLEAN MODE) ';
 			//$fulltext = ' WHERE MATCH (`title`,`description`) AGAINST (? WITH QUERY EXPANSION) ';
@@ -89,8 +90,8 @@ class DB {
 		// this is usual within the first strokes given our instant approach
 		if (!isset($result) || count($result) < 1 || strlen($q) < MIN_QUERY_LENGTH_FOR_FULLTEXT) {
 			$search_type = 'like';
-			$sqld = ' SELECT * FROM `news` ';
-			$sqlt = ' SELECT count(*) as total_in_database FROM `news` ';
+			$sqld = ' SELECT * FROM `' . NEWSTABLE . '` ';
+			$sqlt = ' SELECT count(*) as total_in_database FROM `' . NEWSTABLE . '` ';
 			$params_aux = array();
 			if ($q !== null) {
 				$where_literal = ' WHERE ';
