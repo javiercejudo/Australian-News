@@ -41,4 +41,19 @@ class News {
 	function created() {
 		return $this->created;
 	}
+
+	function clean_description() {
+		if (strpos($this->description,'<font face=')) 
+		{
+			return preg_replace("/<p><img[^>]+\><\/p>/i","",substr($this->description,0,strpos($this->description,'<font face=')));
+		}
+		elseif (strpos($this->description,'<img width=')) 
+        {
+        	return preg_replace("/<p><img[^>]+\><\/p>/i","",substr($this->description,0,strpos($this->description,'<img width=')));
+        }
+        else
+		{
+			return preg_replace("/<p><img[^>]+\><\/p>/i", "", $this->description);
+		}
+	}
 }
