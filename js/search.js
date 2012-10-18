@@ -1,7 +1,9 @@
 window.addEvent('domready', function() {	
 	// defines the event that we will use to load results when the hash changes
 	window.addEvent('hashchange', function(newhash) {
-		$('q').set('value', location.hash.substr(3)).focus();
+		if (location.hash.substr(3) !== $('q').get('value')) {
+			$('q').set('value', location.hash.substr(3));
+		}
 		input_req.get({ 
 			'q'   : location.hash.substr(3) ,
 			'num' : $('items_per_page').get('value')
@@ -9,7 +11,7 @@ window.addEvent('domready', function() {
 		$('num').set('value', $('items_per_page').get('value'));
 		$('skipped').set('value', 0);
 	});
-	
+
 	// the request that will be triggered after the content of the search box
 	// is modified. we create it outside the addEvent so we can cancel previous
 	// requests before they are completed using the parameter link:
@@ -38,7 +40,13 @@ window.addEvent('domready', function() {
 			clearInterval(timer);
 		}
 	});
-	
+
+	// handles the initial hash, if it exists
+	// it will use input_req, so it must be after that is defined
+	if (location.hash.length > 3) {
+		window.fireEvent('hashchange');
+	}
+
 	// the request that will be triggered after asking for more items
 	// we create it outside the addEvent so we can ignore following
 	// requests before they are completed using the parameter link:
@@ -94,11 +102,6 @@ window.addEvent('domready', function() {
 	$('q').addEvent('input', function(event){
 		window.sethash("#q=" + $('q').get('value'));
 	});
-	
-	// handles the initial hash, if it exists
-	if (location.hash.length > 1) {
-		window.fireEvent('hashchange');
-	}
 	
 	// when the suggestion is clicked, this brings it into the search box
 	// and refreshes the results
