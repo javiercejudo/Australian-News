@@ -1,5 +1,5 @@
 <?php
-//usleep(250000);
+
 require_once '../config.php';
 require_once DIRLIB . 'DB.php';
 require_once DIRLIB . 'News.php';
