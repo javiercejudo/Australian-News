@@ -112,9 +112,9 @@ window.addEvent('domready', function() {
 	
 	// allows the tab button to mimic the behavior of a click on a suggestion
 	// this is because the suggestion is the next item that can be focused
-	$$('.outer-container').addEvent('focus:relay(a.top_suggestion_link)', function(event, target){
-		$$('.outer-container').fireEvent('click:relay(a.top_suggestion_link)', [event, target]);
-	});
+	// $$('.outer-container').addEvent('focus:relay(a.top_suggestion_link)', function(event, target){
+	// 	$$('.outer-container').fireEvent('click:relay(a.top_suggestion_link)', [event, target]);
+	// });
 	
 	// triggers the request to load more items when the link is clicked
 	$$('.outer-container').addEvent('click:relay(a.more_link)', function(event, target){
