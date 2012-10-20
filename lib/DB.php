@@ -23,7 +23,7 @@ class DB {
 	static function do_insert ($xml) {
 		$pdo = self::connect();
 		if ($xml !== false) {
-			$rss_news = News::get_item_level();
+			$rss_news = News::get_item_level($xml);
 			$stmt = self::prepare_insert($pdo);
 			foreach ($rss_news as $item) {
 				$item = new News($item, false);
@@ -37,7 +37,7 @@ class DB {
 		}
 	}
 	
-	private function prepare_insert($pdo) {
+	static private function prepare_insert($pdo) {
 		$sql = 'INSERT INTO `' . NEWSTABLE . '`
 			(`title`, `description`, `pub_date`, `link`, `guid`, `created`) 
 			VALUES 
@@ -46,7 +46,7 @@ class DB {
 		return $stmt;
 	}
 	
-	private function execute_insert($stmt,$ap){
+	static private function execute_insert($stmt,$ap){
 		$params = array (
 			':title' => $ap[0],
 			':description' => $ap[1],
@@ -58,7 +58,7 @@ class DB {
 		$stmt->execute($params);
 	}
 	
-	private function delete_duplicates($pdo) {
+	static private function delete_duplicates($pdo) {
 		$sql = 'DELETE n2 FROM ' . NEWSTABLE . ' n1 JOIN ' . NEWSTABLE . ' n2 ON (n1.title=n2.title AND n1.description=n2.description AND n1.id < n2.id)';
 		$pdo->exec($sql);
 	}

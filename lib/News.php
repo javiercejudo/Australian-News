@@ -57,7 +57,7 @@ class News {
 		}
 	}
 
-	static private function get_item_level ($xml) {
+	static public function get_item_level ($xml) {
 		return $xml->channel->item;
 	}
 }
