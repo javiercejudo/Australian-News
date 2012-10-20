@@ -18,31 +18,31 @@ class News {
 		$this->created     = $item->created;
 	}
 
-	function title() {
+	public function title() {
 		return $this->title;
 	}
 
-	function description() {
+	public function description() {
 		return $this->description;
 	}
 
-	function pub_date() {
+	public function pub_date() {
 		return $this->pub_date;
 	}
 
-	function link() {
+	public function link() {
 		return $this->link;
 	}
 
-	function guid() {
+	public function guid() {
 		return $this->guid;
 	}
 
-	function created() {
+	public function created() {
 		return $this->created;
 	}
 
-	function clean_description() {
+	public function clean_description() {
 		if (strpos($this->description,'<font face=')) 
 		{
 			return preg_replace("/<p><img[^>]+\><\/p>/i","",substr($this->description,0,strpos($this->description,'<font face=')));
@@ -55,5 +55,9 @@ class News {
 		{
 			return preg_replace("/<p><img[^>]+\><\/p>/i", "", $this->description);
 		}
+	}
+
+	static private function get_item_level ($xml) {
+		return $xml->channel->item;
 	}
 }
