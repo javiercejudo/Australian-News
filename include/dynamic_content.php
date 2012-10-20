@@ -39,7 +39,7 @@ if ($total_news > 0) {
 			//echo '<p>Debug :: ' . $query . '</p>';
 		}
 		echo '</div>';
-		echo '<ul class="news-feed stroll-class">';
+		echo '<ul class="news-feed">';
 	}
 	$i = 1;
 	foreach ($news as $item) {
