@@ -23,7 +23,7 @@ class DB {
 	static function do_insert ($xml) {
 		$pdo = self::connect();
 		if ($xml !== false) {
-			$rss_news = $xml->channel->item;
+			$rss_news = News::get_item_level();
 			$stmt = self::prepare_insert($pdo);
 			foreach ($rss_news as $item) {
 				$item = new News($item, false);
