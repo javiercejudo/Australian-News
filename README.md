@@ -9,6 +9,6 @@ The Sydney Morning Herald using its public RSS channels.
 
 - Instant search
 - Infinite scrolling
-- Google suggestions (only when no results are found)
+- Google suggestions
 - Unobtrusive JavaScript with graceful degradation
 - Handles connectivity issues when JavaScript is available
