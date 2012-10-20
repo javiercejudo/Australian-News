@@ -35,7 +35,7 @@ class App {
 
 	static public function load_XML() {
 		$local_url = LOCAL_DATA;
-		if (is_file($local_url) && date('U') - filemtime($local_url) < 60*10-10) {
+		if (is_file($local_url) && date('U') - filemtime($local_url) < MAX_REFRESH_TIME) {
 			//$xml_string = file_get_contents($local_url);
 		} else {
 			$xml_string = file_get_contents(SOURCE);
