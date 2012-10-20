@@ -5,11 +5,8 @@ require_once DIRLIB . 'App.php';
 require_once DIRLIB . 'DB.php';
 require_once DIRLIB . 'News.php';
 
-App::load_XML();
-
-$num  = App::set_num();
-$skip = App::set_skip();
-$q    = App::set_q();
+$app = new App($num, $skip, $q);
+$app->load_XML();
 
 ?>
 <!DOCTYPE html>
