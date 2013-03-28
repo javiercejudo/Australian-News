@@ -63,10 +63,10 @@ class DB {
 		$pdo->exec($sql);
 	}
 	
-	static function get_latest_news($pdo, $num=100, $skip=0,$q=null, &$qq, &$query, &$total_in_database, &$top_suggestion){
+	static function get_latest_news($pdo, $num=100, $skip=0,$q=null, &$qq, &$query, &$total_in_database, &$top_suggestion, $more_recent){
 		if (!isset($_GET['q']) || empty($q)) { $q = null; }
 		$search_type = '';
-		if (strlen($q) >= MIN_QUERY_LENGTH_FOR_FULLTEXT) {
+		if (!$more_recent && strlen($q) >= MIN_QUERY_LENGTH_FOR_FULLTEXT) {
 			$search_type = 'fulltext';
 			$sqld = ' SELECT * FROM `' . NEWSTABLE . '` ';
 			$sqlt = ' SELECT count(*) as total_in_database FROM `' . NEWSTABLE . '` ';
@@ -137,7 +137,7 @@ class DB {
 		return $result;
 	}
 	
-	private function get_top_suggestion ($q) {
+	static private function get_top_suggestion ($q) {
 		$suggestions = utf8_encode(
 		    file_get_contents(
 		        'http://suggestqueries.google.com/complete/search?hl=en&cr=countryAUS&client=firefox&q=' .

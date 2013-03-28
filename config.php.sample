@@ -11,15 +11,11 @@ define('HOST', '');
 define('USERNAME', '');
 define('PASSWD', '');
 define('DBNAME', '');
-define('NEWSTABLE', 'news'); // you might not need to change this
 
 define('BASE', dirname(__FILE__));
 define('DIRLIB', BASE . '/lib/');
 define('DIRINC', BASE . '/include/');
 define('LOCAL_DATA', BASE . '/data/smh.xml');
-
-// will retrieve live results if latest check is older than this in seconds
-define('MAX_REFRESH_TIME', 60 * 15);
 
 // if false, suggestions are never offered
 define('SHOW_SUGGESTIONS', true);
